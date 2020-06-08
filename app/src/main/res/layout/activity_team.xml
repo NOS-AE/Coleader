@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.nosae.coleader.viewmodels.TeamViewModel"
+            />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".TeamActivity"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/ToolbarStyle"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <LinearLayout
+            android:id="@+id/layout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingVertical="14dp"
+            android:paddingHorizontal="20dp"
+            >
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:riv_oval="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/test_pic"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="@{viewModel.team.teamName}"
+                tools:text="团队名称"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_intro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="40dp"
+            android:textSize="12sp"
+            android:textColor="@color/darkGray"
+            app:layout_constraintTop_toBottomOf="@id/layout1"
+            android:lineSpacingExtra="2dp"
+            android:text="@{viewModel.team.introduction}"
+            tools:text="团队介绍团队介绍团队介绍团队介绍团队介绍团队介绍团队介绍团队介绍团队介绍团队介绍团队介绍团队介绍团队介绍团队介绍"
+            />
+
+        <RelativeLayout
+            android:id="@+id/layout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tv_intro"
+            android:paddingVertical="20dp"
+            >
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="团队成员"
+                android:layout_alignParentStart="true"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/darkGray"
+                android:layout_toStartOf="@id/icon1"
+                android:layout_marginEnd="5dp"
+                android:text="@{String.valueOf(viewModel.team.peopleCount)}"
+                />
+
+            <ImageView
+                android:id="@+id/icon1"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_arrow_right"
+                android:layout_alignParentEnd="true"
+                />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/layout2"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="20dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="小工具"
+            android:paddingVertical="10dp"
+            android:visibility="@{viewModel.isMember ? View.VISIBLE : View.INVISIBLE}"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv1"
+            android:visibility="@{viewModel.isMember ? View.VISIBLE : View.INVISIBLE}"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:backgroundTint="@color/colorAccent"
+            android:layout_margin="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text='@{viewModel.isMember ? @string/team_action_message : @string/team_action_join}'
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

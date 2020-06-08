@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/date_fragment">
+
+    <fragment
+        android:id="@+id/date_fragment"
+        android:name="com.nosae.coleader.DateFragment"
+        android:label="DateFragment" />
+    <fragment
+        android:id="@+id/file_fragment"
+        android:name="com.nosae.coleader.ContactFragment"
+        android:label="FileFragment" />
+    <fragment
+        android:id="@+id/chat_fragment"
+        android:name="com.nosae.coleader.ChatFragment"
+        android:label="ChatFragment" />
+    <fragment
+        android:id="@+id/more_fragment"
+        android:name="com.nosae.coleader.MoreFragment"
+        android:label="MoreFragment" />
+</navigation>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#FF5B84</color>
+    <color name="messageWindowColor">#F0F0F0</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="light">#F8F8F8</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#0000</color>
+    <color name="lightBlack">#0C0C0C</color>
+    <color name="lightGray">#eee</color>
+    <color name="gray">#aaa</color>
+    <color name="darkGray">#666</color>
+    
+    <color name="level0">#f15b6c</color>
+    <color name="level1">#FFB465</color>
+    <color name="level2">#65A4FC</color>
+    <color name="level3">#6AA8A3</color>
+    <color name="level4">#a1a3a6</color>
+</resources>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg_top_radius">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        >
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="日程详情"
+            />
+
+        <ImageView
+            android:id="@+id/iv_edit"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_edit_black_24dp"
+            app:layout_constraintTop_toTopOf="@id/text1"
+            app:layout_constraintBottom_toBottomOf="@id/text1"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:foreground="?selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:riv_oval="true"
+            android:src="@drawable/test_pic"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toBottomOf="@id/text1"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="@color/gray"
+            android:text="发布者"
+            app:layout_constraintStart_toEndOf="@id/iv_avatar"
+            app:layout_constraintTop_toTopOf="@id/iv_avatar"
+            android:layout_marginStart="14dp"
+            app:layout_constraintBottom_toTopOf="@id/tv_name"
+            />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="Alex Edwards"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/text2"
+            app:layout_constraintStart_toStartOf="@id/text2"
+            app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+            app:layout_constraintVertical_chainStyle="packed"
+            />
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="3dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:background="@drawable/bg_radius_4dp"
+            android:backgroundTint="@color/level0"
+            app:layout_constraintBottom_toBottomOf="@id/tv_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="紧急"
+            />
+
+        <TextView
+            android:id="@+id/tv_intro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:text="What do VSs really look for when making investments?"
+            app:layout_constraintTop_toBottomOf="@id/iv_avatar"
+            android:layout_marginTop="14dp"
+            />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/lightGray"
+            app:layout_constraintTop_toBottomOf="@id/tv_intro"
+            android:layout_marginTop="4dp"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_tags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/view1"
+            android:layout_marginTop="4dp"
+            />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/lightGray"
+            app:layout_constraintTop_toBottomOf="@id/rv_tags"
+            android:layout_marginTop="4dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/darkGray"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@id/view2"
+            android:layout_marginTop="20dp"
+            android:text="So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?"
+            android:lineSpacingExtra="4dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
+
+

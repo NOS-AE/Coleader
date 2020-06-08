@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/date_fragment"
+        android:icon="@drawable/ic_date"
+        android:title="日程"
+        app:showAsAction="always"
+        />
+
+    <item android:id="@+id/file_fragment"
+        android:icon="@drawable/ic_friends"
+        android:title="联系人"
+        app:showAsAction="always"
+        />
+
+    <item android:id="@+id/chat_fragment"
+        android:icon="@drawable/ic_chat"
+        android:title="讨论"
+        app:showAsAction="always"
+        />
+
+    <item android:id="@+id/more_fragment"
+        android:icon="@drawable/ic_more"
+        android:title="更多"
+        app:showAsAction="always"
+        />
+
+</menu>

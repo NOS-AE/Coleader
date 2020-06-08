@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".DateFragment"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingBottom="30dp"
+            android:background="@drawable/bg_bottom_radius"
+            android:backgroundTint="@color/white"
+            >
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Today's"
+                android:textSize="22sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                />
+
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Schedule"
+                android:textSize="22sp"
+                android:textColor="@color/lightBlack"
+                app:layout_constraintTop_toBottomOf="@id/text1"
+                app:layout_constraintStart_toStartOf="@id/text1"
+                />
+
+            <TextView
+                android:id="@+id/text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/text1"
+                android:textColor="@color/gray"
+                android:text="2019年2月27日"
+                app:layout_constraintTop_toBottomOf="@id/text2"
+                android:layout_marginTop="20dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/text3"
+                app:layout_constraintBottom_toBottomOf="@id/text3"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="查看所有"
+                android:textColor="@color/gray"
+                android:layout_marginEnd="30dp"
+                android:src="@drawable/ic_date"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.nosae.coleader.MultiStateView
+            android:id="@+id/multiStateView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+        </com.nosae.coleader.MultiStateView>
+
+    </LinearLayout>
+</layout>

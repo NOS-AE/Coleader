@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="com.nosae.coleader.viewmodels.CalendarViewModel"
+            />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".CalendarActivity"
+        android:orientation="vertical"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/ToolbarStyle"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+            <TextView
+                android:id="@+id/tv_year_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                tools:text="2019年5月"
+                android:layout_gravity="center"
+                />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <com.haibin.calendarview.CalendarLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/white"
+            app:calendar_content_view_id="@id/multiStateView"
+            app:default_status="expand"
+            >
+
+            <com.haibin.calendarview.CalendarView
+                android:id="@+id/calendar_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:week_text_color="@color/darkGray"
+                app:select_mode="single_mode"
+                app:selected_text_color="@color/white"
+                app:current_day_text_color="@color/colorAccent"
+                app:current_month_text_color="@color/black"
+                app:month_view_show_mode="mode_fix"
+                app:selected_theme_color="#D2D4D6"
+                app:month_view="com.nosae.coleader.view.SingleMonthView"
+                app:week_view="com.nosae.coleader.view.SingleWeekView"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                />
+
+            <com.nosae.coleader.MultiStateView
+                android:id="@+id/multiStateView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                isLoading="@{viewModel.loading}"
+                onRetry="@{()->viewModel.retry()}"
+                android:background="@color/white"
+                >
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="80dp"
+                    android:clipToPadding="false"
+                    />
+            </com.nosae.coleader.MultiStateView>
+
+        </com.haibin.calendarview.CalendarLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/colorAccent"
+            android:src="@drawable/ic_add_black_24dp"
+            android:tint="@color/white"
+
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.nosae.coleader.viewmodels.EditInfoViewModel"
+            />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <androidx.appcompat.widget.Toolbar xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/ToolbarStyle"
+            >
+
+            <TextView
+                android:id="@+id/toolbar_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                tools:text="修改资料"
+                android:layout_gravity="center"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="30dp"
+                >
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/iv_avatar"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_oval="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/test_pic"
+                    android:background="@drawable/bg_circle_shape"
+                    android:backgroundTint="@color/lightGray"
+                    imageUrl="@{viewModel.userInfo.avatar}"
+                    />
+
+                <TextView
+                    android:id="@+id/text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_avatar"
+                    android:layout_marginTop="10dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/darkGray"
+                    android:text="更换头像"
+                    />
+
+                <TextView
+                    android:id="@+id/text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="昵称"
+                    app:layout_constraintTop_toBottomOf="@id/text1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="30dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/darkGray"
+                    />
+
+                <EditText
+                    android:id="@+id/et1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/text2"
+                    android:background="@drawable/bg_simple_et"
+                    android:text="@={viewModel.userInfo.nickname}"
+                    />
+
+                <TextView
+                    android:id="@+id/text3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="签名"
+                    app:layout_constraintTop_toBottomOf="@id/et1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="20dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/darkGray"
+                    />
+
+                <EditText
+                    android:id="@+id/et2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/text3"
+                    android:background="@drawable/bg_simple_et"
+                    android:text="@={viewModel.userInfo.signature}"
+                    />
+
+                <TextView
+                    android:id="@+id/text4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="性别"
+                    app:layout_constraintTop_toBottomOf="@id/et2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="20dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/darkGray"
+                    />
+
+                <EditText
+                    android:id="@+id/et3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/text4"
+                    android:background="@drawable/bg_simple_et"
+                    gender="@={viewModel.userInfo.gender}"
+                    />
+
+                <TextView
+                    android:id="@+id/text5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="省区"
+                    app:layout_constraintTop_toBottomOf="@id/et3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="20dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/darkGray"
+                    />
+
+                <EditText
+                    android:id="@+id/et4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/text5"
+                    android:background="@drawable/bg_simple_et"
+                    android:text="@={viewModel.userInfo.province}"
+                    />
+
+                <TextView
+                    android:id="@+id/text6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="市区"
+                    app:layout_constraintTop_toBottomOf="@id/et4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="20dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/darkGray"
+                    />
+
+                <EditText
+                    android:id="@+id/et5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/text6"
+                    android:background="@drawable/bg_simple_et"
+                    android:text="@={viewModel.userInfo.city}"
+                    />
+
+                <TextView
+                    android:id="@+id/text7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="详细地址"
+                    app:layout_constraintTop_toBottomOf="@id/et5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="20dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/darkGray"
+                    />
+
+                <EditText
+                    android:id="@+id/et6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/text7"
+                    android:background="@drawable/bg_simple_et"
+                    android:text="@={viewModel.userInfo.address}"
+                    />
+
+                <Button
+                    android:id="@+id/btn_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="14dp"
+                    android:layout_marginHorizontal="40dp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:textColor="@color/white"
+                    android:text="确认修改"
+                    app:layout_constraintTop_toBottomOf="@id/et6"
+                    android:layout_marginTop="30dp"
+                    android:onClick="@{()->viewModel.submit()}"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+
+</layout>
