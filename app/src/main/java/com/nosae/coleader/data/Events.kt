@@ -19,3 +19,5 @@ class PunchEvent(val punch: Punch)
 class PunchFinishEvent
 
 class ReceivePunchEvent(val punches: List<Punch>?)
+
+class CreatePunchEvent

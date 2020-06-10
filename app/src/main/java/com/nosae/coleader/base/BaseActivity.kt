@@ -9,9 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.lifecycleScope
 import com.nosae.coleader.R
 import com.nosae.coleader.utils.setStatusBarIcon
 import kotlinx.android.synthetic.main.fragment_chat.*
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Create by NOSAE on 2020/4/22
@@ -68,4 +71,10 @@ abstract class BaseActivity<T: ViewDataBinding>: AppCompatActivity() {
         }
         return true
     }
+
+    fun launch(
+        context: CoroutineContext = Dispatchers.IO,
+        start: CoroutineStart = CoroutineStart.DEFAULT,
+        block: suspend CoroutineScope.() -> Unit
+    ): Job = lifecycleScope.launch(context, start, block)
 }

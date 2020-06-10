@@ -8,4 +8,7 @@
     <string name="team_action_join">加入团队</string>
     <string name="team_action_message">发送消息</string>
 
+    <string name="has_punch">你已经打卡了~&#128522;</string>
+    <string name="not_punch">你还没有打卡~&#129320;</string>
+
 </resources>

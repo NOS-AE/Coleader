@@ -196,6 +196,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="@{viewModel.punch.status == 0 ? @string/not_punch : @string/has_punch}"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -40,10 +40,6 @@ class PunchActivity : BaseActivity<ActivityPunchBinding>() {
                 toast(it)
             }
         }
-
-        // viewModel.punch.observe(this) {
-        //     // emoji
-        // }
         registerBus(this)
     }
 

@@ -39,6 +39,9 @@ class ChatFragment : BaseToolbarFragment<FragmentChatBinding>() {
         b.layoutPunch.run {
             iv_avatar.load(R.drawable.ic_punch_round)
             text1.text = "打卡"
+            setOnClickListener {
+                PunchListActivity.start(context)
+            }
         }
     }
 

@@ -16,4 +16,8 @@ class TeamRepo: BaseRepo() {
     suspend fun getTeamMembers(id: Long) = tryBlock {
         teamService.getMembers(id)
     }
+
+    suspend fun getTeamUrl(id: Long) = tryBlock {
+        teamService.getTeamUrl(id)
+    }
 }

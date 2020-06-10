@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.observe
 import com.nosae.coleader.base.BaseActivity
+import com.nosae.coleader.data.CreatePunchEvent
 import com.nosae.coleader.databinding.ActivityCreatePunchBinding
 import com.nosae.coleader.utils.*
 import com.nosae.coleader.view.CheckMemberDialog
@@ -70,6 +71,7 @@ class CreatePunchActivity : BaseActivity<ActivityCreatePunchBinding>() {
         viewModel.createRes.observe(this) {
             if (it == null) {
                 toast("创建成功")
+                postEvent(CreatePunchEvent())
                 finish()
             } else {
                 toast(it)

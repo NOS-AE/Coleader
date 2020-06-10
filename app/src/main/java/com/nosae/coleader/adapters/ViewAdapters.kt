@@ -88,7 +88,7 @@ fun TextView.gender(value: Int) {
 }
 
 @InverseBindingAdapter(attribute = "gender")
-fun TextView.getGender() = text.gender
+fun TextView.getGender() = text.toString().gender
 
 @BindingAdapter("genderAttrChanged")
 fun TextView.bind(listener: InverseBindingListener) {
@@ -104,7 +104,7 @@ private val Int.gender
         else -> "保密"
     }
 
-private val CharSequence.gender
+private val String.gender
     get() = when(this) {
         "男" -> 1
         "女" -> 2

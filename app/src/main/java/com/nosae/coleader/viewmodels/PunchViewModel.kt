@@ -34,6 +34,7 @@ class PunchViewModel(
             _punchRes.postValue("打卡失败")
         }
         p.status = 1
+        punch.postValue(p)
     }
 
     @Suppress("UNCHECKED_CAST")

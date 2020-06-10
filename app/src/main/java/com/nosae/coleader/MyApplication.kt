@@ -5,19 +5,12 @@ import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
-import cn.jpush.android.api.JPushInterface
 import cn.jpush.android.ups.JPushUPSManager
 import com.nosae.coleader.config.JPush_APP_KEY
 import com.nosae.coleader.config.setAlias
-import com.nosae.coleader.data.LoginDto
-import com.nosae.coleader.data.RetrofitHelper
-import com.nosae.coleader.data.TempData
 import com.nosae.coleader.repository.SharedPref
 import com.nosae.coleader.utils.debug
 import com.nosae.coleader.utils.startActivity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.util.*
 
 /**

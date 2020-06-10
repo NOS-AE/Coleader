@@ -17,7 +17,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="UnusedAttribute">
-        <activity android:name=".CreatePunchActivity"></activity>
+        <provider
+            android:authorities="com.nosae.coleader.fileprovider"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <activity android:name=".ShareTeamActivity"></activity>
+        <activity android:name=".CreatePunchActivity" />
         <activity android:name=".PunchListActivity" />
         <activity android:name=".PunchActivity" />
         <activity android:name=".EditDateActivity" />

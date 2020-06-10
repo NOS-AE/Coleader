@@ -1,6 +1,7 @@
 package com.nosae.coleader
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
@@ -16,6 +17,16 @@ class EditInfoActivity : BaseActivity<ActivityEditInfoBinding>() {
     private val viewModel by viewModels<EditInfoViewModel> {
         EditInfoViewModel.Factory()
     }
+    private val genderDialog by lazy {
+        val data = arrayOf("保密", "男", "女")
+        AlertDialog.Builder(this)
+            .setTitle("选择性别")
+            .setItems(data) { dialog, which ->
+                dialog.dismiss()
+                viewModel.userInfo.value?.gender = which
+                viewModel.userInfo.value = viewModel.userInfo.value
+            }.create()
+    }
 
     override fun getLayoutId(): Int {
         return R.layout.activity_edit_info
@@ -30,6 +41,9 @@ class EditInfoActivity : BaseActivity<ActivityEditInfoBinding>() {
         }
         b.ivAvatar.setOnClickListener {
             openGallery()
+        }
+        b.et3.setOnClickListener {
+            genderDialog.show()
         }
     }
 

@@ -19,7 +19,7 @@ interface PunchService {
     suspend fun getDetails(@Query("teamId") teamId: Long, @Query("cardId") cardId: Long): PunchDetailsResDto
 
     @Headers("Authorization: ")
-    @GET("api/cards/{page}?teamId=<teamId>&status=<status>&isPublished=<isPublished>")
+    @GET("api/cards/{page}")
     suspend fun getPunches(
         @Path("page") page: Int,
         @Query("teamId") teamId: Long? = null,
@@ -28,6 +28,7 @@ interface PunchService {
         @Query("cardId") cardId: Long? = null
     ): PunchListResDto
 
+    @Headers("Authorization: ")
     @POST("api/cards/punch")
     suspend fun punch(@Body dto: PunchDto): ResponseDto
 }
