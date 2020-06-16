@@ -73,6 +73,7 @@ object RetrofitHelper {
     val teamService: TeamService by lazy { retrofit.create(TeamService::class.java) }
     val dateService: DateService by lazy { retrofit.create(DateService::class.java) }
     val punchService: PunchService by lazy { retrofit.create(PunchService::class.java) }
+    val taskService: TaskService by lazy { retrofit.create(TaskService::class.java) }
 
     private const val TOKEN_EXPIRED_TIME = 1000 * 60 * 10L
     private val tokenMutex = Mutex()

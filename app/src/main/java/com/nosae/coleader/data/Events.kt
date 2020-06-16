@@ -20,4 +20,8 @@ class PunchFinishEvent
 
 class ReceivePunchEvent(val punches: List<Punch>?)
 
-class CreatePunchEvent
+class UpdatePunchEvent
+
+class EditTaskEvent(val task: Task)
+
+class UpdateTaskEvent

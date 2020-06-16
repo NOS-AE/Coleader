@@ -1,7 +1,5 @@
 package com.nosae.coleader
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
@@ -10,9 +8,9 @@ import com.nosae.coleader.adapters.DateAdapter
 import com.nosae.coleader.base.BaseFragment
 import com.nosae.coleader.data.UpdateDateEvent
 import com.nosae.coleader.databinding.FragmentDateBinding
-import com.nosae.coleader.utils.registerBus
+import com.nosae.coleader.utils.Bus
+import com.nosae.coleader.utils.startActivity
 import com.nosae.coleader.utils.submitList
-import com.nosae.coleader.utils.unregisterBus
 import com.nosae.coleader.view.DateDetailsDialog
 import com.nosae.coleader.viewmodels.DateViewModel
 import kotlinx.android.synthetic.main.fragment_date.*
@@ -20,6 +18,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
+@Bus
 class DateFragment: BaseFragment<FragmentDateBinding>() {
 
     private lateinit var detailsDialog: DateDetailsDialog
@@ -33,7 +32,6 @@ class DateFragment: BaseFragment<FragmentDateBinding>() {
     }
 
     override fun initView(b: FragmentDateBinding, savedInstanceState: Bundle?) {
-        registerBus(this)
         b.rv.layoutManager = LinearLayoutManager(context)
         detailsDialog = DateDetailsDialog()
         val adapter = DateAdapter(requireContext()) {
@@ -45,7 +43,8 @@ class DateFragment: BaseFragment<FragmentDateBinding>() {
         val curStr = "${calendar.get(Calendar.YEAR)}年${calendar.get(Calendar.MONTH) + 1}月${calendar.get(Calendar.DATE)}日"
         text3.text = curStr
         tv_all.setOnClickListener {
-            CalendarActivity.start(context)
+            startActivity<MarkdownActivity>()
+            // CalendarActivity.start(context)
         }
 
         viewModel.dateRes.observe(this) {
@@ -59,12 +58,7 @@ class DateFragment: BaseFragment<FragmentDateBinding>() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public fun onUpdateDate(e: UpdateDateEvent) {
+    fun onUpdateDate(e: UpdateDateEvent) {
         viewModel.getDate()
-    }
-
-    override fun onDestroy() {
-        unregisterBus(this)
-        super.onDestroy()
     }
 }

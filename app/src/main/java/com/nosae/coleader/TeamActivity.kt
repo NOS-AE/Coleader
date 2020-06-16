@@ -73,6 +73,11 @@ class TeamActivity : BaseActivity<ActivityTeamBinding>() {
             ) {
                 PunchListActivity.start(this, viewModel.teamId, viewModel.team.value!!.isAdmin)
             }, ToolItem(
+                "任务",
+                R.drawable.ic_task
+            ) {
+                TaskListActivity.start(this, viewModel.teamId, viewModel.team.value!!.isAdmin)
+            }, ToolItem(
                 "发布问卷",
                 R.drawable.ic_questionnaire
             ) {

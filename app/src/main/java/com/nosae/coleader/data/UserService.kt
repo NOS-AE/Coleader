@@ -18,7 +18,7 @@ interface UserService {
     @POST("api/users/login")
     suspend fun login(@Body dto: LoginDto): LoginResDto
 
-    @POST("api/users/utils/emailCode")
+    @GET("api/users/utils/emailCode")
     suspend fun sendCaptcha(@Query("email") email: String): ResponseDto
 
     @Headers("Authorization: ")

@@ -25,7 +25,8 @@ interface PunchService {
         @Query("teamId") teamId: Long? = null,
         @Query("status") status: Int? = null,
         @Query("isPublished") isPublished: Int? = null, // 传个随便的值表示是自己发布的
-        @Query("cardId") cardId: Long? = null
+        @Query("cardId") cardId: Long? = null,
+        @Query("date") date: String? = null
     ): PunchListResDto
 
     @Headers("Authorization: ")

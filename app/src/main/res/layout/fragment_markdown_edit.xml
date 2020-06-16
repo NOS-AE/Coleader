@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp"
+    >
+
+    <LinearLayout
+        android:id="@+id/ll_func"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <com.nosae.coleader.view.ToastImageView
+            android:id="@+id/btn_add_l_header"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="center"
+            android:background="?selectableItemBackground"
+            app:toastText="添加大标题"
+            android:src="@drawable/ic_add_head_large"
+            />
+
+        <com.nosae.coleader.view.ToastImageView
+            android:id="@+id/btn_add_m_header"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="center"
+            android:background="?selectableItemBackground"
+            app:toastText="添加中标题"
+            android:src="@drawable/ic_add_head_medium"
+            />
+
+        <com.nosae.coleader.view.ToastImageView
+            android:id="@+id/btn_add_s_header"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="center"
+            android:background="?selectableItemBackground"
+            app:toastText="添加小标题"
+            android:src="@drawable/ic_add_head_small"
+            />
+
+        <com.nosae.coleader.view.ToastImageView
+            android:id="@+id/btn_add_bold"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="center"
+            android:background="?selectableItemBackground"
+            app:toastText="添加粗体文字"
+            android:src="@drawable/ic_add_bold"
+            />
+
+        <com.nosae.coleader.view.ToastImageView
+            android:id="@+id/btn_add_italic"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="center"
+            android:background="?selectableItemBackground"
+            app:toastText="添加斜体文字"
+            android:src="@drawable/ic_add_italic"
+            />
+
+        <com.nosae.coleader.view.ToastImageView
+            android:id="@+id/btn_add_quote"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="center"
+            android:background="?selectableItemBackground"
+            app:toastText="添加引用"
+            android:src="@drawable/ic_add_quote"
+            />
+
+        <com.nosae.coleader.view.ToastImageView
+            android:id="@+id/btn_add_code"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="center"
+            android:background="?selectableItemBackground"
+            app:toastText="添加代码"
+            android:src="@drawable/ic_add_code"
+            />
+
+        <com.nosae.coleader.view.ToastImageView
+            android:id="@+id/btn_add_link"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="center"
+            android:background="?selectableItemBackground"
+            app:toastText="添加链接"
+            android:src="@drawable/ic_add_link"
+            />
+
+        <com.nosae.coleader.view.ToastImageView
+            android:id="@+id/btn_add_list"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="center"
+            android:background="?selectableItemBackground"
+            app:toastText="添加列表"
+            android:src="@drawable/ic_add_list"
+            />
+
+        <com.nosae.coleader.view.ToastImageView
+            android:id="@+id/btn_add_mention"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="center"
+            android:background="?selectableItemBackground"
+            app:toastText="提到人/团伙"
+            android:src="@drawable/ic_add_mention"
+            />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/ll_func"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@null"
+        android:gravity="top"
+        android:layout_marginTop="20dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

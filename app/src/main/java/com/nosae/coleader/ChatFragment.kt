@@ -8,10 +8,7 @@ import com.nosae.coleader.adapters.ChatAdapter
 import com.nosae.coleader.base.BaseToolbarFragment
 import com.nosae.coleader.data.ReceivePunchEvent
 import com.nosae.coleader.databinding.FragmentChatBinding
-import com.nosae.coleader.utils.load
-import com.nosae.coleader.utils.registerBus
-import com.nosae.coleader.utils.removeStickyEvent
-import com.nosae.coleader.utils.unregisterBus
+import com.nosae.coleader.utils.*
 import com.nosae.coleader.viewmodels.ChatViewModel
 import kotlinx.android.synthetic.main.item_chat.view.*
 import org.greenrobot.eventbus.Subscribe
@@ -20,6 +17,7 @@ import org.greenrobot.eventbus.ThreadMode
 /**
  * A simple [Fragment] subclass.
  */
+@Bus
 class ChatFragment : BaseToolbarFragment<FragmentChatBinding>() {
 
     private val viewModel = viewModels<ChatViewModel> {
@@ -31,7 +29,6 @@ class ChatFragment : BaseToolbarFragment<FragmentChatBinding>() {
     }
 
     override fun initView(b: FragmentChatBinding, savedInstanceState: Bundle?) {
-        registerBus(this)
         bindToolbar("")
         setCenterTitle("消息")
         b.rv.layoutManager = LinearLayoutManager(context)
@@ -46,7 +43,7 @@ class ChatFragment : BaseToolbarFragment<FragmentChatBinding>() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public fun onGetPunch(e: ReceivePunchEvent) {
+    fun onGetPunch(e: ReceivePunchEvent) {
         removeStickyEvent(e)
         val punches = e.punches
         mBinding.layoutPunch.text2.text = if (punches == null || punches.isEmpty()) {
@@ -54,11 +51,6 @@ class ChatFragment : BaseToolbarFragment<FragmentChatBinding>() {
         } else {
             punches[0].introduction
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        unregisterBus(this)
     }
 }
 

@@ -21,7 +21,7 @@ class CreatePunchViewModel(
     val createRes: LiveData<String?> = _createRes
 
     val memberResMutable = MutableLiveData<ArrayList<Friend>>(arrayListOf())
-    val memberRes = SingleLiveEvent<ArrayList<Friend>>()
+    val memberRes = SingleLiveEvent<List<Friend>>()
 
     var teamId = -1L
     val startAt = MutableLiveData<String>()

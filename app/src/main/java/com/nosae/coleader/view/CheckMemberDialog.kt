@@ -4,37 +4,25 @@ import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckedTextView
-import androidx.lifecycle.observe
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nosae.coleader.R
 import com.nosae.coleader.base.BaseBottomDialog
 import com.nosae.coleader.base.BaseViewHolder
-import com.nosae.coleader.base.SingleLiveEvent
 import com.nosae.coleader.data.Friend
 import com.nosae.coleader.utils.debug
 import com.nosae.coleader.utils.inflate
-import com.nosae.coleader.utils.notifyDataSetChange
 import kotlinx.android.synthetic.main.layout_simple_list.view.*
 
 /**
  * Create by NOSAE on 2020/6/7
  */
 class CheckMemberDialog(
-    private val liveData: SingleLiveEvent<ArrayList<Friend>>,
     private val onCheck: (Boolean, Friend)->Unit
 ): BaseBottomDialog() {
 
     private var list: List<Friend> = emptyList()
-        set(value) {
-            hasSet = true
-            checkList = Array(value.size) {
-                true
-            }
-            field = value
-        }
-    private var hasSet = false
-
     private var checkList = emptyArray<Boolean>()
     private lateinit var adapter: RecyclerView.Adapter<BaseViewHolder>
 
@@ -70,20 +58,12 @@ class CheckMemberDialog(
         }
         rv.layoutManager = LinearLayoutManager(context)
         rv.adapter = adapter
+    }
 
-        if (!hasSet) {
-            debug("set a")
-            liveData.value?.let {
-                list = it
-                adapter.notifyDataSetChange(multiStateView, it)
-            }
-        }
-        liveData.observe(this@CheckMemberDialog) {
-            if (it != null) {
-                list = it
-            }
-            adapter.notifyDataSetChange(multiStateView, it)
-            debug("notifyDataSetChange")
-        }
+    fun setData(list: List<Friend>, checkMap: ((Friend)->Boolean)? = null) {
+        this.list = list
+        checkList = checkMap?.let {
+            Array(list.size) { it(list[it]) }
+        } ?: Array(list.size) { false }
     }
 }

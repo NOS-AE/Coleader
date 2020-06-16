@@ -24,11 +24,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.nosae.coleader.BuildConfig
 import com.nosae.coleader.MultiStateView
 import com.nosae.coleader.MyApplication
 import com.nosae.coleader.R
-import org.greenrobot.eventbus.EventBus
 import java.io.Closeable
 
 /**
@@ -123,6 +123,10 @@ fun <T : Closeable, S: Closeable, U: Closeable, R> use(c1: T, c2: S, c3: U, f: (
     c1.use { c2.use { c3.use { f(c1, c2, c3) } } }
 
 fun toast(msg: String) = Toast.makeText(MyApplication.instance, msg, Toast.LENGTH_SHORT).show()
+fun snack(v: View, msg: String, actionText: String? = null, action: ((View) -> Unit)? = null) =
+    Snackbar.make(v, msg, Snackbar.LENGTH_SHORT)
+        .setAction(actionText, action)
+        .show()
 
 fun debug(msg: String) {
     if (!BuildConfig.DEBUG)
@@ -242,6 +246,19 @@ fun <U> MutableLiveData<ArrayList<U>>.postAdd(item: U) {
 }
 
 @MainThread
+fun <U> MutableLiveData<ArrayList<U>>.addAll(item: List<U>) {
+    val newList = value ?: return
+    newList.addAll(item)
+    value = newList
+}
+
+fun <U> MutableLiveData<ArrayList<U>>.postAddAll(item: List<U>) {
+    val newList = value ?: return
+    newList.addAll(item)
+    postValue(newList)
+}
+
+@MainThread
 fun <U> MutableLiveData<ArrayList<U>>.remove(item: U) {
     val newList = value ?: return
     newList.remove(item)
@@ -267,8 +284,8 @@ fun <U> MutableLiveData<ArrayList<U>>.postRemoveAt(pos: Int) {
     postValue(newList)
 }
 
-fun registerBus(subscriber: Any) = EventBus.getDefault().register(subscriber)
-fun postEvent(event: Any) = EventBus.getDefault().post(event)
-fun postStickyEvent(event: Any) = EventBus.getDefault().postSticky(event)
-fun removeStickyEvent(event: Any) = EventBus.getDefault().removeStickyEvent(event)
-fun unregisterBus(subscriber: Any) = EventBus.getDefault().unregister(subscriber)
+fun <T> MutableLiveData<T>.selfAssign() {
+    value = value
+}
+
+fun aboveApi(version: Int) = Build.VERSION.SDK_INT >= version

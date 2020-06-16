@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".TaskActivity"
+        android:fitsSystemWindows="true"
+        >
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            >
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentScrim="@color/colorAccent"
+                app:statusBarScrim="@color/transparent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                android:fitsSystemWindows="true"
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    >
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/iv_avatar"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:riv_oval="true"
+                        android:src="@drawable/test_pic"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/text2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textColor="@color/gray"
+                        android:text="发布者"
+                        app:layout_constraintStart_toEndOf="@id/iv_avatar"
+                        app:layout_constraintTop_toTopOf="@id/iv_avatar"
+                        android:layout_marginStart="14dp"
+                        app:layout_constraintBottom_toTopOf="@id/tv_name"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        tools:text="Alex Edwards"
+                        android:textColor="@color/black"
+                        app:layout_constraintTop_toBottomOf="@id/text2"
+                        app:layout_constraintStart_toStartOf="@id/text2"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+                        app:layout_constraintVertical_chainStyle="packed"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="3dp"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:background="@drawable/bg_radius_4dp"
+                        android:backgroundTint="@color/level0"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_name"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:text="未完成"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:elevation="0dp"
+                    app:layout_collapseMode="pin"
+                    android:fitsSystemWindows="true"
+                    />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                >
+
+                <TextView
+                    android:id="@+id/tv_intro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    tools:text="What do VSs really look for when making investments?"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lightGray"
+                    app:layout_constraintTop_toBottomOf="@id/tv_intro"
+                    android:layout_marginTop="4dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/darkGray"
+                    android:textSize="15sp"
+                    app:layout_constraintTop_toBottomOf="@id/view1"
+                    android:layout_marginTop="20dp"
+                    tools:text="So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?"
+                    android:lineSpacingExtra="4dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="待提交文件"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toBottomOf="@id/tv_content"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+                <com.nosae.coleader.MultiStateView
+                    android:id="@+id/multiStateView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv0"
+                    android:layout_marginTop="10dp"
+                    >
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                </com.nosae.coleader.MultiStateView>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/multiStateView"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:textColor="@color/white"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            app:fab_addButtonColorNormal="@color/colorAccent"
+            app:fab_addButtonColorPressed="@color/colorAccent"
+            app:fab_labelsPosition="left"
+            app:fab_labelStyle="@style/FabLabelStyle"
+            >
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_file"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="@color/white"
+                app:fab_icon="@drawable/ic_file"
+                app:fab_size="mini"
+                app:fab_title="选择文件"
+                app:fab_colorPressed="#06000000"
+                android:padding="5dp"
+                />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_md"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="@color/white"
+                app:fab_icon="@drawable/ic_edit_black_24dp"
+                app:fab_title="编写Markdown"
+                app:fab_size="mini"
+                app:fab_colorPressed="#06000000"
+                />
+
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

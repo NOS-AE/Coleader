@@ -18,6 +18,7 @@ import com.nosae.coleader.data.Date
 import com.nosae.coleader.data.EditDateEvent
 import com.nosae.coleader.utils.inflate
 import com.nosae.coleader.utils.invisible
+import com.nosae.coleader.utils.visible
 import kotlinx.android.synthetic.main.item_tag.*
 import kotlinx.android.synthetic.main.layout_date_details.view.*
 import org.greenrobot.eventbus.EventBus
@@ -92,6 +93,7 @@ class DateDetailsDialog: BottomSheetDialogFragment() {
                 EventBus.getDefault().postSticky(EditDateEvent(date))
                 EditDateActivity.start(context, date.teamId, EditDateActivity.UPDATE)
             }
+            iv_edit.visible()
         } else {
             iv_edit.invisible()
         }

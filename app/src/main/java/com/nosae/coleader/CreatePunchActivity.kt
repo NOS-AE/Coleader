@@ -7,11 +7,13 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.observe
 import com.nosae.coleader.base.BaseActivity
-import com.nosae.coleader.data.CreatePunchEvent
+import com.nosae.coleader.data.UpdatePunchEvent
 import com.nosae.coleader.databinding.ActivityCreatePunchBinding
 import com.nosae.coleader.utils.*
 import com.nosae.coleader.view.CheckMemberDialog
 import com.nosae.coleader.viewmodels.CreatePunchViewModel
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CreatePunchActivity : BaseActivity<ActivityCreatePunchBinding>() {
 
@@ -35,7 +37,7 @@ class CreatePunchActivity : BaseActivity<ActivityCreatePunchBinding>() {
             viewModel.getMember()
         }
         b.viewModel = viewModel
-        dialog = CheckMemberDialog(viewModel.memberRes) { isCheck, bean ->
+        dialog = CheckMemberDialog { isCheck, bean ->
             if (isCheck) {
                 viewModel.memberResMutable.add(bean)
             } else {
@@ -43,12 +45,16 @@ class CreatePunchActivity : BaseActivity<ActivityCreatePunchBinding>() {
             }
         }
         viewModel.memberRes.observe(this) {
-            viewModel.memberResMutable.value = it?.let { ArrayList(it) }
+            it?.let {
+                viewModel.memberResMutable.value = ArrayList()
+                dialog.setData(it)
+            }
         }
         b.text9.setOnClickListener {
             dialog.show(supportFragmentManager, "dialog")
         }
         b.text4.setOnClickListener {
+            val cal = Calendar.getInstance()
             DatePickerDialog(this,
                 DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
                     TimePickerDialog(this,
@@ -56,9 +62,10 @@ class CreatePunchActivity : BaseActivity<ActivityCreatePunchBinding>() {
                             val startAt = viewModel.formatDate(year, month, dayOfMonth, hourOfDay, minute)
                             viewModel.startAt.value = startAt
                         }, 0, 0, true).show()
-                }, 2020, 6, 1).show()
+                }, cal[Calendar.YEAR], cal[Calendar.MONTH], cal[Calendar.DATE]).show()
         }
         b.text8.setOnClickListener {
+            val cal = Calendar.getInstance()
             DatePickerDialog(this,
                 DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
                     TimePickerDialog(this,
@@ -66,12 +73,12 @@ class CreatePunchActivity : BaseActivity<ActivityCreatePunchBinding>() {
                             val endAt = viewModel.formatDate(year, month, dayOfMonth, hourOfDay, minute)
                             viewModel.endAt.value = endAt
                         }, 0, 0, true).show()
-                }, 2020, 6, 1).show()
+                }, cal[Calendar.YEAR], cal[Calendar.MONTH], cal[Calendar.DATE]).show()
         }
         viewModel.createRes.observe(this) {
             if (it == null) {
                 toast("创建成功")
-                postEvent(CreatePunchEvent())
+                postEvent(UpdatePunchEvent())
                 finish()
             } else {
                 toast(it)

@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".MyApplication"
@@ -17,17 +18,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="UnusedAttribute">
+        <activity android:name=".MarkdownPreviewActivity"></activity>
+        <activity android:name=".MarkdownEditActivity" />
+        <activity android:name=".MarkdownActivity" />
+        <activity android:name=".TaskActivity" />
+        <activity android:name=".EditTaskActivity" />
+        <activity android:name=".TaskListActivity" />
+
         <provider
-            android:authorities="com.nosae.coleader.fileprovider"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="com.nosae.coleader.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true"
-            >
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-        <activity android:name=".ShareTeamActivity"></activity>
+
+        <activity android:name=".ShareTeamActivity" />
         <activity android:name=".CreatePunchActivity" />
         <activity android:name=".PunchListActivity" />
         <activity android:name=".PunchActivity" />

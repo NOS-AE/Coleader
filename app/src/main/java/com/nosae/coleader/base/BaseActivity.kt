@@ -11,7 +11,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.lifecycleScope
 import com.nosae.coleader.R
+import com.nosae.coleader.utils.Bus
+import com.nosae.coleader.utils.registerBus
 import com.nosae.coleader.utils.setStatusBarIcon
+import com.nosae.coleader.utils.unregisterBus
 import kotlinx.android.synthetic.main.fragment_chat.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -28,6 +31,9 @@ abstract class BaseActivity<T: ViewDataBinding>: AppCompatActivity() {
         mBinding = DataBindingUtil.setContentView(this, getLayoutId())
         mBinding.lifecycleOwner = this
         initViews(mBinding, savedInstanceState)
+        if (this::class.java.isAnnotationPresent(Bus::class.java)) {
+            registerBus(this)
+        }
     }
 
     @LayoutRes
@@ -70,6 +76,13 @@ abstract class BaseActivity<T: ViewDataBinding>: AppCompatActivity() {
             finish()
         }
         return true
+    }
+
+    override fun onDestroy() {
+        if (this::class.java.isAnnotationPresent(Bus::class.java)) {
+            unregisterBus(this)
+        }
+        super.onDestroy()
     }
 
     fun launch(

@@ -20,7 +20,10 @@ import com.nosae.coleader.viewmodels.EditDateViewModel
 import kotlinx.android.synthetic.main.item_tag.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.util.*
+import kotlin.collections.ArrayList
 
+@Bus
 class EditDateActivity : BaseActivity<ActivityEditDateBinding>() {
 
     private val viewModel by viewModels<EditDateViewModel> {
@@ -52,9 +55,9 @@ class EditDateActivity : BaseActivity<ActivityEditDateBinding>() {
             toast("团队ID未知")
             finish()
         }
-        registerBus(this)
 
         b.text4.setOnClickListener {
+            val cal = Calendar.getInstance()
             DatePickerDialog(this,
                 DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
                     TimePickerDialog(this,
@@ -62,9 +65,10 @@ class EditDateActivity : BaseActivity<ActivityEditDateBinding>() {
                             val startAt = viewModel.formatDate(year, month, dayOfMonth, hourOfDay, minute)
                             viewModel.startAt.value = startAt
                         }, 0, 0, true).show()
-                }, 2020, 6, 1).show()
+                }, cal[Calendar.YEAR], cal[Calendar.MONTH], cal[Calendar.DATE]).show()
         }
         b.text8.setOnClickListener {
+            val cal = Calendar.getInstance()
             DatePickerDialog(this,
                 DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
                     TimePickerDialog(this,
@@ -72,7 +76,7 @@ class EditDateActivity : BaseActivity<ActivityEditDateBinding>() {
                             val endAt = viewModel.formatDate(year, month, dayOfMonth, hourOfDay, minute)
                             viewModel.endAt.value = endAt
                         }, 0, 0, true).show()
-                }, 2020, 6, 1).show()
+                }, cal[Calendar.YEAR], cal[Calendar.MONTH], cal[Calendar.DATE]).show()
         }
 
         b.rvTags.layoutManager = LinearLayoutManager(this).apply {
@@ -107,7 +111,7 @@ class EditDateActivity : BaseActivity<ActivityEditDateBinding>() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public fun onEdit(event: EditDateEvent) {
+    fun onEdit(event: EditDateEvent) {
         event.date.let {
             viewModel.run {
                 scheduleId = it.id
@@ -121,11 +125,6 @@ class EditDateActivity : BaseActivity<ActivityEditDateBinding>() {
             }
         }
         removeStickyEvent(event)
-    }
-
-    override fun onDestroy() {
-        unregisterBus(this)
-        super.onDestroy()
     }
 
     private inner class TagAdapter: RecyclerView.Adapter<BaseViewHolder>() {

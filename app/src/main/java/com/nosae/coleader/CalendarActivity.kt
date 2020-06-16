@@ -18,6 +18,7 @@ import com.nosae.coleader.viewmodels.CalendarViewModel
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+@Bus
 class CalendarActivity : BaseActivity<ActivityCalendarBinding>() {
 
     private lateinit var detailsDialog: DateDetailsDialog
@@ -31,7 +32,6 @@ class CalendarActivity : BaseActivity<ActivityCalendarBinding>() {
     }
 
     override fun initViews(b: ActivityCalendarBinding, savedInstanceState: Bundle?) {
-        registerBus(this)
         bindToolbar("")
         b.viewModel = viewModel
 
@@ -83,13 +83,8 @@ class CalendarActivity : BaseActivity<ActivityCalendarBinding>() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        unregisterBus(this)
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public fun onUpdateCalendar(e: UpdateDateEvent) {
+    fun onUpdateCalendar(e: UpdateDateEvent) {
         viewModel.retry()
     }
 

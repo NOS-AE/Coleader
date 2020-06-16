@@ -10,13 +10,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.nosae.coleader.adapters.PunchListAdapter
 import com.nosae.coleader.base.BaseActivity
 import com.nosae.coleader.data.PunchEvent
+import com.nosae.coleader.data.UpdatePunchEvent
 import com.nosae.coleader.databinding.ActivityPunchListBinding
-import com.nosae.coleader.utils.postStickyEvent
-import com.nosae.coleader.utils.startActivity
-import com.nosae.coleader.utils.submitList
+import com.nosae.coleader.utils.*
 import com.nosae.coleader.viewmodels.PunchListViewModel
 import kotlinx.android.synthetic.main.activity_punch_list.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
+@Bus
 class PunchListActivity : BaseActivity<ActivityPunchListBinding>() {
 
     private val viewModel by viewModels<PunchListViewModel> {
@@ -46,6 +48,11 @@ class PunchListActivity : BaseActivity<ActivityPunchListBinding>() {
         viewModel.listRes.observe(this) {
             adapter.submitList(multiStateView, it)
         }
+        viewModel.getPunches()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onUpdatePunch(e: UpdatePunchEvent) {
         viewModel.getPunches()
     }
 

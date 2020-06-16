@@ -56,7 +56,6 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.wear:wear:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -75,6 +74,9 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.2.0'
     implementation 'com.github.luongvo:badgeview:1.1.5'
     testImplementation("com.squareup.okhttp3:mockwebserver:4.6.0")
+    implementation 'com.zzhoujay.markdown:markdown:1.0.5'
+    implementation 'com.github.florent37:runtime-permission-kotlin:1.1.2'
+    implementation 'com.getbase:floatingactionbutton:1.10.1'
     implementation('io.socket:socket.io-client:1.0.0') {
         // TODO exclude
         // excluding org.json which is provided by Android
@@ -83,5 +85,7 @@ dependencies {
     // 极光
     implementation 'cn.jiguang.sdk:jpush:3.6.0'
     implementation 'cn.jiguang.sdk:jcore:2.3.4'
+    // 指纹
+    implementation 'androidx.biometric:biometric:1.0.1'
 
 }
