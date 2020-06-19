@@ -10,7 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.nosae.coleader.base.BaseFragment
 import com.nosae.coleader.base.BaseToolbarFragment
+import com.nosae.coleader.data.TempData
 import com.nosae.coleader.databinding.FragmentMoreBinding
+import com.nosae.coleader.repository.SharedPref
 import com.nosae.coleader.utils.debug
 import com.nosae.coleader.utils.startActivity
 import com.nosae.coleader.viewmodels.MoreViewModel
@@ -50,6 +52,9 @@ class MoreFragment : BaseToolbarFragment<FragmentMoreBinding>() {
     }
 
     private fun logout() {
+        TempData.clear()
+        SharedPref.loginAccount = ""
+        SharedPref.userPassword = ""
         val intent = Intent(context, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)

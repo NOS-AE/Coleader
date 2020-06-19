@@ -58,8 +58,7 @@
         android:id="@+id/text3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/text2"
-        app:layout_constraintEnd_toStartOf="@id/iv_badge"
+        app:layout_constraintEnd_toEndOf="@id/tv_count"
         app:layout_constraintBottom_toBottomOf="@id/text2"
         android:textColor="@color/gray"
         android:textSize="10sp"
@@ -69,12 +68,20 @@
         />
 
 
-    <ImageView
-        android:id="@+id/iv_badge"
+    <TextView
+        android:id="@+id/tv_count"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="18sp"
+        android:minWidth="18sp"
+        android:gravity="center"
+        android:paddingHorizontal="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/text1"
+        android:textSize="10sp"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_circle_shape"
+        android:backgroundTint="@color/level0"
+        android:visibility="gone"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

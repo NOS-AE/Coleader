@@ -12,6 +12,7 @@ import androidx.lifecycle.observe
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.nosae.coleader.base.ToolbarFragmentContainer
 import com.nosae.coleader.data.BadgeEvent
+import com.nosae.coleader.data.ReceiveChatEvent
 import com.nosae.coleader.data.ReceivePunchEvent
 import com.nosae.coleader.utils.debug
 import com.nosae.coleader.utils.postStickyEvent
@@ -71,7 +72,6 @@ class MainActivity : AppCompatActivity(), ToolbarFragmentContainer {
         viewModel.punchRes.observe(this) {
             postStickyEvent(ReceivePunchEvent(it))
         }
-        viewModel.getLastPunch()
     }
 
     private fun init() {
@@ -86,7 +86,6 @@ class MainActivity : AppCompatActivity(), ToolbarFragmentContainer {
     }
 
     private fun select(itemId: Int) {
-        debug("select")
         val toHide = fragmentMap[curItemId]?.fragment ?: return
         val toShowLazy = fragmentMap[itemId] ?: return
         val toShow = toShowLazy.fragment ?: toShowLazy.lazy.invoke()
@@ -94,7 +93,6 @@ class MainActivity : AppCompatActivity(), ToolbarFragmentContainer {
         val trx = supportFragmentManager.beginTransaction()
             .hide(toHide)
         if (toShowLazy.fragment == null) {
-            debug("add fragment")
             toShowLazy.fragment = toShow
             trx.add(R.id.main_container, toShow)
         } else {

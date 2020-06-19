@@ -17,7 +17,6 @@ import com.nosae.coleader.utils.toast
 import com.nosae.coleader.viewmodels.TeamViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import java.lang.Exception
 
 class TeamActivity : BaseActivity<ActivityTeamBinding>() {
 
@@ -59,6 +58,12 @@ class TeamActivity : BaseActivity<ActivityTeamBinding>() {
                 return false
             }
         }
+        b.layout2.setOnClickListener {
+            UserListActivity.start(this, viewModel.teamId)
+        }
+        b.btnSendMessage.setOnClickListener {
+            MessageActivity.start(this, viewModel.teamId, viewModel.team.value!!.teamName, MessageActivity.TEAM)
+        }
         val adapter = ToolsAdapter()
         b.rvTools.adapter = adapter
         val list = arrayListOf(
@@ -78,10 +83,10 @@ class TeamActivity : BaseActivity<ActivityTeamBinding>() {
             ) {
                 TaskListActivity.start(this, viewModel.teamId, viewModel.team.value!!.isAdmin)
             }, ToolItem(
-                "发布问卷",
+                "问卷",
                 R.drawable.ic_questionnaire
             ) {
-
+                FormListActivity.start(this, viewModel.teamId, viewModel.team.value!!.isAdmin)
             })
         adapter.submitList(list)
         viewModel.teamUrl.observe(this) {

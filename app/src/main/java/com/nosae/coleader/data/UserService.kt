@@ -3,8 +3,6 @@ package com.nosae.coleader.data
 import com.nosae.coleader.adapters.NullToInt
 import com.nosae.coleader.adapters.NullToString
 import com.squareup.moshi.JsonClass
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.http.*
 
 /**
@@ -40,6 +38,18 @@ interface UserService {
     @Headers("Authorization: ")
     @PATCH("api/users")
     suspend fun updateInfo(@Body info: UserUpdateDto): UserInfoResDto?
+
+    @Headers("Authorization: ")
+    @GET("api/users/utils/beat")
+    suspend fun beat(): ResponseDto
+
+    @Headers("Authorization: ")
+    @GET("api/users/utils/chats")
+    suspend fun getLastMessage(): LastUserMessageResDto
+
+    @Headers("Authorization: ")
+    @GET("api/users/utils/chat/{page}")
+    suspend fun getMessage(@Path("page") page: Int, @Query("toId") toId: Long): UserMessageResDto
 }
 
 @JsonClass(generateAdapter = true)
@@ -156,3 +166,81 @@ data class UserUpdateDto(
         }
     }
 }
+
+data class UserResultMessage(
+    var id: Long, // 71
+    var toId: Long, // 1
+    var chatRecord: String, // 1232lads
+    var isRead: Int, // 0
+    var type: String, // text
+    var updatedAt: String, // 2020-06-17T05:50:06.107Z
+    var createdAt: String, // 2020-06-17T05:50:06.107Z
+    var userInfo: Info
+) {
+    data class Info(
+        var id: Long,
+        var username: String,
+        var nickname: String,
+        @NullToString var avatar: String
+    )
+}
+
+@JsonClass(generateAdapter = true)
+data class LastUserMessageResDto(
+    var errno: String, // 0
+    var `data`: List<Data>
+) {
+    @JsonClass(generateAdapter = true)
+    data class Data(
+        var userId: Long, // 1
+        var toId: Long, // 3
+        var count: Int, // 0
+        var records: Records
+    ) {
+        @JsonClass(generateAdapter = true)
+        data class Records(
+            var count: Int, // 18
+            var rows: List<LastUserMessage>
+        )
+    }
+}
+
+@JsonClass(generateAdapter = true)
+data class LastUserMessage(
+    var chatRecord: String, // 1232lads
+    var type: String, // text
+    var createdAt: String, // 2020-06-17T05:50:06.000Z
+    var userId: Long, // 2
+    var toId: Long, // 1
+    var id: Long // 71
+)
+
+@JsonClass(generateAdapter = true)
+data class UserMessageResDto(
+    var errno: String, // 0
+    var `data`: List<Data>
+) {
+    @JsonClass(generateAdapter = true)
+    data class Data(
+        var userId: Int, // 1
+        var toId: Int, // 2
+        var count: Int, // 29
+        var records: Records
+    ) {
+        @JsonClass(generateAdapter = true)
+        data class Records(
+            var count: Int, // 68
+            var rows: List<UserMessage>
+        )
+    }
+}
+
+@JsonClass(generateAdapter = true)
+data class UserMessage(
+    var chatRecord: String, // 1232lads
+    var type: String, // text
+    var createdAt: String, // 2020-06-17T05:50:06.000Z
+    var userId: Long, // 2
+    var toId: Long, // 1
+    var id: Long // 71
+)

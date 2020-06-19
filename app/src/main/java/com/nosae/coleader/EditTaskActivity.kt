@@ -7,18 +7,14 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.observe
 import com.nosae.coleader.base.BaseActivity
-import com.nosae.coleader.data.EditTaskEvent
 import com.nosae.coleader.data.UpdateTaskEvent
 import com.nosae.coleader.databinding.ActivityEditTaskBinding
 import com.nosae.coleader.utils.*
 import com.nosae.coleader.view.CheckMemberDialog
 import com.nosae.coleader.viewmodels.EditTaskViewModel
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 import kotlin.collections.ArrayList
 
-@Bus
 class EditTaskActivity : BaseActivity<ActivityEditTaskBinding>() {
 
     private val viewModel by viewModels<EditTaskViewModel> {
@@ -33,14 +29,12 @@ class EditTaskActivity : BaseActivity<ActivityEditTaskBinding>() {
 
     override fun initViews(b: ActivityEditTaskBinding, savedInstanceState: Bundle?) {
         b.viewModel = viewModel
-        val type = intent.getIntExtra("type", CREATE)
         val teamId = intent.getLongExtra("teamId", -1)
         if (teamId == -1L) {
             toast("未知团队ID")
             finish()
         }
         viewModel.teamId = teamId
-        viewModel.type.value = type
         viewModel.taskId
 
         bindToolbar("")
@@ -79,15 +73,18 @@ class EditTaskActivity : BaseActivity<ActivityEditTaskBinding>() {
         viewModel.memberRes.observe(this) {
             it?.let {
                 viewModel.memberResMutable.value = ArrayList(it)
-                participants?.let { ids ->
+                if (participants != null) {
                     dialog.setData(it) {
-                        val contain = ids.contains(it.id)
+                        val contain = participants!!.contains(it.id)
                         if (!contain) {
                             viewModel.memberResMutable.remove(it)
                         }
                         contain
                     }
-                } ?: dialog.setData(it)
+                } else {
+                    viewModel.memberResMutable.clear()
+                    dialog.setData(it)
+                }
             }
         }
         viewModel.res.observe(this) {
@@ -103,26 +100,8 @@ class EditTaskActivity : BaseActivity<ActivityEditTaskBinding>() {
         viewModel.getMember()
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    fun onEdit(event: EditTaskEvent) {
-        val task = event.task
-        viewModel.run {
-            intro.value = task.introduction
-            startAt.value = task.startAt
-            endAt.value = task.endAt
-            remark.value = task.remark
-            content.value = task.content
-            participants = task.participants
-            viewModel.memberRes.selfAssign()
-            memberRes.value = memberRes.value
-            taskId = task.id
-        }
-    }
-
     companion object {
         const val CREATE = 0
-        const val UPDATE = 1
-
         fun start(ctx: Context?, type: Int, teamId: Long) {
             ctx.startActivity<EditTaskActivity>(Bundle().apply {
                 putInt("type", type)

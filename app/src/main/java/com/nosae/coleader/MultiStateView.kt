@@ -9,7 +9,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
-import com.nosae.coleader.utils.debug
 import com.nosae.coleader.utils.gone
 import com.nosae.coleader.utils.visible
 
@@ -51,7 +50,6 @@ class MultiStateView @JvmOverloads constructor(
     fun showContent() {
         if (mViewState == STATE_CONTENT)
             return
-        debug("show content")
         if (mContentViews.isEmpty()) {
             if (childCount > 0)
                 for (i in 0 until childCount) {
@@ -69,7 +67,6 @@ class MultiStateView @JvmOverloads constructor(
     fun showLoading() {
         if (mViewState == STATE_LOADING)
             return
-        debug("show loading")
         if (mLoadingView == null) {
             mLoadingView = layoutInflater.inflate(mLoadingViewResId, null)
         }
@@ -81,7 +78,6 @@ class MultiStateView @JvmOverloads constructor(
     fun showError() {
         if (mViewState == STATE_ERROR)
             return
-        debug("show error")
         if (mErrorView == null) {
             mErrorView = layoutInflater.inflate(mErrorViewResId, null).apply {
                 setOnClickListener {
@@ -105,10 +101,8 @@ class MultiStateView @JvmOverloads constructor(
     }
 
     private fun removeOtherView() {
-        debug(mViewState.toString())
         when (mViewState) {
             STATE_CONTENT -> mContentViews.forEach {
-                debug("remove content")
                 it.gone()
             }
             STATE_EMPTY -> if (mEmptyView != null) removeView(mEmptyView)

@@ -71,7 +71,7 @@ class UserInfoActivity : BaseActivity<ActivityUserInfoBinding>() {
             TYPE_FRIEND -> {
                 btn.text = "发送消息"
                 btn.setOnClickListener {
-                    startActivity<MessageActivity>()
+                    MessageActivity.start(this, viewModel.id, viewModel.nickname.value!!)
                 }
             }
         }

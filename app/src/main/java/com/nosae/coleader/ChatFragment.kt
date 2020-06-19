@@ -3,10 +3,13 @@ package com.nosae.coleader
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nosae.coleader.adapters.ChatAdapter
 import com.nosae.coleader.base.BaseToolbarFragment
+import com.nosae.coleader.data.ReceiveChatEvent
 import com.nosae.coleader.data.ReceivePunchEvent
+import com.nosae.coleader.data.UpdateLastMessageEvent
 import com.nosae.coleader.databinding.FragmentChatBinding
 import com.nosae.coleader.utils.*
 import com.nosae.coleader.viewmodels.ChatViewModel
@@ -20,9 +23,10 @@ import org.greenrobot.eventbus.ThreadMode
 @Bus
 class ChatFragment : BaseToolbarFragment<FragmentChatBinding>() {
 
-    private val viewModel = viewModels<ChatViewModel> {
+    private val viewModel by viewModels<ChatViewModel> {
         ChatViewModel.Factory()
     }
+    private lateinit var adapter: ChatAdapter
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_chat
@@ -32,13 +36,18 @@ class ChatFragment : BaseToolbarFragment<FragmentChatBinding>() {
         bindToolbar("")
         setCenterTitle("消息")
         b.rv.layoutManager = LinearLayoutManager(context)
-        b.rv.adapter = ChatAdapter(requireContext())
+        adapter = ChatAdapter(requireContext())
+        b.rv.adapter = adapter
         b.layoutPunch.run {
             iv_avatar.load(R.drawable.ic_punch_round)
             text1.text = "打卡"
             setOnClickListener {
                 PunchListActivity.start(context)
             }
+        }
+        viewModel.chatRes.observe(this) {
+            debug("聊天列表 ${it.size}")
+            adapter.submitList(it)
         }
     }
 
@@ -52,10 +61,9 @@ class ChatFragment : BaseToolbarFragment<FragmentChatBinding>() {
             punches[0].introduction
         }
     }
-}
 
-data class MockChat(
-    var name: String,
-    var content: String,
-    var number: Int
-)
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onUpdate(e: UpdateLastMessageEvent) {
+        viewModel.getLastMessage()
+    }
+}

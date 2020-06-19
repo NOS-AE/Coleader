@@ -11,7 +11,6 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.nosae.coleader.MultiStateView
 import com.nosae.coleader.R
 import com.nosae.coleader.base.ScaleTab
-import com.nosae.coleader.utils.debug
 
 /**
  * Create by NOSAE on 2020/4/22
@@ -66,7 +65,6 @@ fun MultiStateView.isLoading(isLoading: Boolean) {
     if (isLoading) {
         showLoading()
     } else if (getState() == MultiStateView.STATE_LOADING) {
-        debug("showContent")
         showContent()
     }
 }
@@ -74,7 +72,6 @@ fun MultiStateView.isLoading(isLoading: Boolean) {
 @BindingAdapter("onRetry")
 fun MultiStateView.onRetry(l: ()->Unit) {
     setTryOnErrorListener {
-        debug("retry")
         l()
     }
 }

@@ -29,6 +29,9 @@ import com.nosae.coleader.BuildConfig
 import com.nosae.coleader.MultiStateView
 import com.nosae.coleader.MyApplication
 import com.nosae.coleader.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.Closeable
 
 /**
@@ -233,15 +236,19 @@ fun View.setOnDelayClickListener(delay: Long = 1000L, action: (View)->Unit) {
 }
 
 @MainThread
-fun <U> MutableLiveData<ArrayList<U>>.add(item: U) {
+fun <U> MutableLiveData<ArrayList<U>>.add(item: U, pos: Int? = null) {
     val newList = value ?: return
-    newList.add(item)
+    pos?.let {
+        newList.add(it, item)
+    } ?: newList.add(item)
     value = newList
 }
 
-fun <U> MutableLiveData<ArrayList<U>>.postAdd(item: U) {
+fun <U> MutableLiveData<ArrayList<U>>.postAdd(item: U, pos: Int? = null) {
     val newList = value ?: return
-    newList.add(item)
+    pos?.let {
+        newList.add(it, item)
+    } ?: newList.add(item)
     postValue(newList)
 }
 
@@ -262,6 +269,15 @@ fun <U> MutableLiveData<ArrayList<U>>.postAddAll(item: List<U>) {
 fun <U> MutableLiveData<ArrayList<U>>.remove(item: U) {
     val newList = value ?: return
     newList.remove(item)
+    value = newList
+}
+
+@MainThread
+fun <U> MutableLiveData<ArrayList<U>>.clear() {
+    val newList = value ?: return
+    if (newList.isEmpty())
+        return
+    newList.clear()
     value = newList
 }
 
@@ -289,3 +305,6 @@ fun <T> MutableLiveData<T>.selfAssign() {
 }
 
 fun aboveApi(version: Int) = Build.VERSION.SDK_INT >= version
+
+suspend fun <T> withIO(block: suspend CoroutineScope.() -> T) = withContext(Dispatchers.IO, block)
+suspend fun <T> withMain(block: suspend CoroutineScope.() -> T) = withContext(Dispatchers.Main, block)

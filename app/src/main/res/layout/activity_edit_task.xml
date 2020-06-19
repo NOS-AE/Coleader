@@ -36,7 +36,7 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_gravity="center"
-                android:text="@{viewModel.type == 0 ? `创建任务` : `更新任务`}"
+                android:text="创建任务"
                 />
 
         </androidx.appcompat.widget.Toolbar>
@@ -205,32 +205,14 @@
                     android:paddingVertical="14dp"
                     android:backgroundTint="@color/colorAccent"
                     android:textColor="@color/white"
-                    android:text="@{viewModel.type == 0 ? `创建日程` : `修改日程`}"
+                    android:text="创建任务"
                     app:layout_constraintTop_toBottomOf="@id/et3"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/btn2"
-                    app:layout_constraintHorizontal_weight="1"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:onClick="@{()->viewModel.type == 0 ? viewModel.create() : viewModel.update()}"
-                    />
-
-                <Button
-                    android:id="@+id/btn2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="14dp"
-                    android:backgroundTint="@color/white"
-                    android:textColor="@color/black"
-                    android:text="删除日程"
-                    app:layout_constraintTop_toBottomOf="@id/et3"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/btn1"
                     app:layout_constraintHorizontal_weight="1"
-                    android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="30dp"
-                    android:visibility="@{viewModel.type == 0 ? View.GONE : View.VISIBLE}"
-                    android:onClick="@{()->viewModel.delete()}"
+                    android:layout_marginHorizontal="20dp"
+                    android:onClick="@{()->viewModel.create()}"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

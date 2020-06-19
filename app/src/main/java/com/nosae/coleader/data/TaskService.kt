@@ -69,28 +69,34 @@ data class TaskListResDto(
 
 @JsonClass(generateAdapter = true)
 data class Task(
-    var id: Long, // 2
-    var publishId: Int, // 2
+    var id: Long, // 1
+    var publishId: Long, // 1
     var startAt: String, // 2020-05-06T02:23:53.000Z
     var endAt: String, // 2020-06-30T03:22:53.000Z
     var remark: String, // 没备注
     var content: String, // maomaomao
     var introduction: String, // maomao
     var status: Int, // 0
-    var createdAt: String, // 2020-06-03T08:18:05.000Z
-    var updatedAt: String, // 2020-06-03T08:18:05.000Z
-    var teamId: Long, // 2
-    var teamName: String, // 石头石头
+    var createdAt: String, // 2020-06-17T05:00:58.000Z
+    var updatedAt: String, // 2020-06-17T05:00:58.000Z
+    var teamId: Long, // 1
+    var teamName: String, // 猫猫
     var isAdmin: Boolean, // true
-    var teamIntroduction: String, // 憨憨创建的团队库
+    var teamIntroduction: String, // 猫猫创建的团队库
     var files: List<File>,
-    @NullToString var teamAvatar: String, // null
-    var participants: List<Long>
+    @NullToString var teamAvatar: String // null
 ) {
     @JsonClass(generateAdapter = true)
     data class File(
-        var id: Int, // 1
-        var url: String, // 1
-        var fileName: String // 1
+        var id: Long, // 2
+        var status: Int, // 0
+        var username: String, // NOSAE
+        var nickname: String, // 强哥
+        var userId: Long, // 3
+        var url: List<String>?, // null
+        var fileName: List<String>?, // null
+        @NullToString var content: String, // null
+        @NullToString var title: String, // null
+        @NullToString var avatar: String // null
     )
 }

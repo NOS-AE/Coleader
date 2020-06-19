@@ -23,7 +23,6 @@ class EditTaskViewModel(
 
     var teamId = -1L
     var taskId = -1L
-    val type = MutableLiveData(0)
     val memberResMutable = MutableLiveData<ArrayList<Friend>>(arrayListOf())
     val memberRes = SingleLiveEvent<ArrayList<Friend>>()
     private val _deleteRes = SingleLiveEvent<String>()
@@ -63,27 +62,6 @@ class EditTaskViewModel(
             _res.postCall()
         } else {
             _res.postValue("创建失败")
-        }
-    }
-
-    fun update() = launchNetwork {
-        val participants = memberResMutable.value!!.map {
-            it.id
-        }
-        val res = repo.updateTask(
-            teamId,
-            intro.value!!,
-            content.value!!,
-            remark.value!!,
-            startAt.value!!,
-            endAt.value!!,
-            participants,
-            taskId
-        )
-        if (res != null && res.errno == "0") {
-            _res.postCall()
-        } else {
-            _res.postValue("更新失败")
         }
     }
 

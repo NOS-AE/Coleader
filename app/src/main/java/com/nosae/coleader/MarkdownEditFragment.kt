@@ -78,4 +78,10 @@ class MarkdownEditFragment : Fragment(R.layout.fragment_markdown_edit), Markdown
         et.setText(newText)
         et.setSelection(newCursorIndex)
     }
+
+    companion object {
+        fun newInstance(): MarkdownEditFragment {
+            return MarkdownEditFragment()
+        }
+    }
 }

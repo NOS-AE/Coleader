@@ -12,4 +12,13 @@ object TempData {
     var teamList: List<Team>? = null
     var friendList: List<Friend>? = null
     var canSetAlias = false
+
+    fun clear() {
+        captchaTime = 0
+        loginTime = 0L
+        token = ""
+        userInfo = null
+        teamList = null
+        friendList = null
+    }
 }

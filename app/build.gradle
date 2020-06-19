@@ -87,5 +87,7 @@ dependencies {
     implementation 'cn.jiguang.sdk:jcore:2.3.4'
     // 指纹
     implementation 'androidx.biometric:biometric:1.0.1'
+    // jsBridge
+    implementation 'com.github.lzyzsd:jsbridge:1.0.4'
 
 }

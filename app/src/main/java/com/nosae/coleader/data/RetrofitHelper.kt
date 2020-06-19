@@ -37,7 +37,7 @@ object RetrofitHelper {
             val builder = request.newBuilder()
             request.header("Authorization")?.run {
                 runBlocking {
-                    builder.header("Authorization", getToken())
+                    builder.header("Authorization", "Bearer ${getToken()}")
                 }
             }
             it.proceed(builder.build())
@@ -74,6 +74,7 @@ object RetrofitHelper {
     val dateService: DateService by lazy { retrofit.create(DateService::class.java) }
     val punchService: PunchService by lazy { retrofit.create(PunchService::class.java) }
     val taskService: TaskService by lazy { retrofit.create(TaskService::class.java) }
+    val formService: FormService by lazy { retrofit.create(FormService::class.java) }
 
     private const val TOKEN_EXPIRED_TIME = 1000 * 60 * 10L
     private val tokenMutex = Mutex()
@@ -88,31 +89,36 @@ object RetrofitHelper {
                 MyApplication.startLogin()
                 return@withLock ""
             }
-            TempData.token = "Bearer ${loginRes.data!!.token}"
+            TempData.token = loginRes.data!!.token
         }
         TempData.token
     }
 
     // DEMO code
     fun buildWS() {
-        val socket = IO.socket("http://127.0.0.1:2851")
-        socket.connect()
-            .on("chat") {
-                debug("onChat")
-                it.forEach {
-                    debug(it.toString())
-                }
-            }.on(Socket.EVENT_ERROR) {
-                debug("onError")
-                it.forEach {
-                    debug(it.toString())
-                }
-            }.on(Socket.EVENT_CONNECT_ERROR) {
-                debug("onConnectError")
-                it.forEach {
-                    debug(it.toString())
-                }
-            }.emit("chat", "你好", "世界")
+        val socket = IO.socket("http://yjcxlr.cn:3000")
+        socket.connect().on("get_msg") {
+            val json = it[0]
+            debug(json as String)
+        }
+        socket.emit("send-msg", "content", "text", 1)
+        // socket.connect()
+        //     .on("chat") {
+        //         debug("onChat")
+        //         it.forEach {
+        //             debug(it.toString())
+        //         }
+        //     }.on(Socket.EVENT_ERROR) {
+        //         debug("onError")
+        //         it.forEach {
+        //             debug(it.toString())
+        //         }
+        //     }.on(Socket.EVENT_CONNECT_ERROR) {
+        //         debug("onConnectError")
+        //         it.forEach {
+        //             debug(it.toString())
+        //         }
+        //     }.emit("chat", "你好", "世界")
     }
 
 }

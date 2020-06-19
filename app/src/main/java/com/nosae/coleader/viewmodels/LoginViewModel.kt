@@ -60,7 +60,7 @@ class LoginViewModel(
         if (res.errno != "0") {
             _response.postValue("登录失败")
         } else {
-            TempData.token = "Bearer ${res.data!!.token}"
+            TempData.token = res.data!!.token
             repo.account = ac
             repo.password = pw
             _response.postValue(null)

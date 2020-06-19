@@ -7,6 +7,7 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nosae.coleader.adapters.TaskAdapter
 import com.nosae.coleader.base.BaseActivity
+import com.nosae.coleader.data.TaskEvent
 import com.nosae.coleader.data.UpdateTaskEvent
 import com.nosae.coleader.databinding.ActivityTaskListBinding
 import com.nosae.coleader.utils.*
@@ -26,6 +27,8 @@ class TaskListActivity : BaseActivity<ActivityTaskListBinding>() {
     }
 
     override fun initViews(b: ActivityTaskListBinding, savedInstanceState: Bundle?) {
+        bindToolbar("")
+        setCenterTitle("任务列表")
         b.viewModel = viewModel
         val type = intent.getIntExtra("type", USER)
         if (type == TEAM) {
@@ -38,11 +41,10 @@ class TaskListActivity : BaseActivity<ActivityTaskListBinding>() {
             debug("isAdmin $isAdmin")
             viewModel.isAdmin.value = isAdmin
         }
-        bindToolbar("")
-        setCenterTitle("任务列表")
         b.rv.layoutManager = LinearLayoutManager(this)
         val adapter = TaskAdapter {
-            EditTaskActivity.start(this, EditTaskActivity.UPDATE, viewModel.teamId)
+            postStickyEvent(TaskEvent(it))
+            startActivity<TaskActivity>()
         }
         b.rv.adapter = adapter
         b.fab.setOnClickListener {

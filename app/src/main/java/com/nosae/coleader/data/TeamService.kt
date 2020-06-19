@@ -32,6 +32,14 @@ interface TeamService {
     @Headers("Authorization: ")
     @GET("api/teams/utils/join")
     suspend fun getTeamUrl(@Query("teamId") teamId: Long): JoinTeamUrlResDto
+
+    @Headers("Authorization: ")
+    @GET("api/teams/utils/chats")
+    suspend fun getLastMessage(): LastTeamMessageResDto
+
+    @Headers("Authorization: ")
+    @GET("api/teams/utils/chat/{page}")
+    suspend fun getMessage(@Path("page") page: Int, @Query("teamId") teamId: Long): TeamMessageResDto
 }
 
 @JsonClass(generateAdapter = true)
@@ -148,4 +156,74 @@ fun CreateTeamResDto.Data.toTeam() = Team(
     updatedAt,
     true,
     ""
+)
+
+@JsonClass(generateAdapter = true)
+data class LastTeamMessageResDto(
+    var errno: String, // 0
+    var `data`: List<Data>
+) {
+    @JsonClass(generateAdapter = true)
+    data class Data(
+        var count: Int, // 2
+        var teamId: Long, // 1
+        var records: Records
+    ) {
+        @JsonClass(generateAdapter = true)
+        data class Records(
+            var count: Int, // 14
+            var rows: List<LastTeamMessage>
+        )
+    }
+}
+
+@JsonClass(generateAdapter = true)
+data class LastTeamMessage(
+    var id: Long, // 32
+    var chatRecord: String, // 臭傻逼
+    var type: String, // text
+    var createdAt: String, // 2020-06-18T05:03:49.000Z
+    var updatedAt: String, // 2020-06-18T05:03:49.000Z
+    var teamId: Long, // 1
+    var userId: Long // 1
+)
+
+data class TeamResultMessage(
+    var id: Long, // 32
+    var chatRecord: String, // 臭傻逼
+    var type: String, // text
+    var teamId: Long, // 1
+    var userId: Long, // 1
+    var updatedAt: String, // 2020-06-18T05:03:49.726Z
+    var createdAt: String, // 2020-06-18T05:03:49.726Z
+    var userInfo: Info
+) {
+    data class Info(
+        var username: String,
+        var nickname: String,
+        @NullToString var avatar: String
+    )
+}
+
+@JsonClass(generateAdapter = true)
+data class TeamMessageResDto(
+    var errno: String, // 0
+    var `data`: Data
+) {
+    @JsonClass(generateAdapter = true)
+    data class Data(
+        var count: Int, // 14
+        var rows: List<TeamMessage>
+    )
+}
+
+@JsonClass(generateAdapter = true)
+data class TeamMessage(
+    var id: Long, // 19
+    var chatRecord: String, // 123
+    var type: String, // text
+    var createdAt: String, // 2020-06-17T15:39:09.000Z
+    var updatedAt: String, // 2020-06-17T15:39:09.000Z
+    var teamId: Long, // 1
+    var userId: Long // 1
 )

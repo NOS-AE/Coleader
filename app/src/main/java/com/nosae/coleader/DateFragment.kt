@@ -43,8 +43,7 @@ class DateFragment: BaseFragment<FragmentDateBinding>() {
         val curStr = "${calendar.get(Calendar.YEAR)}年${calendar.get(Calendar.MONTH) + 1}月${calendar.get(Calendar.DATE)}日"
         text3.text = curStr
         tv_all.setOnClickListener {
-            startActivity<MarkdownActivity>()
-            // CalendarActivity.start(context)
+            CalendarActivity.start(context)
         }
 
         viewModel.dateRes.observe(this) {

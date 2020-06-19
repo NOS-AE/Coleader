@@ -18,7 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="UnusedAttribute">
-        <activity android:name=".MarkdownPreviewActivity"></activity>
+        <activity android:name=".UserListActivity"></activity>
+        <activity android:name=".FormListActivity" />
+        <activity android:name=".HelloActivity" />
+        <activity android:name=".WebActivity" />
+        <activity android:name=".MarkdownPreviewActivity" />
         <activity android:name=".MarkdownEditActivity" />
         <activity android:name=".MarkdownActivity" />
         <activity android:name=".TaskActivity" />

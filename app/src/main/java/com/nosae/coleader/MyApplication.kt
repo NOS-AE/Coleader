@@ -11,6 +11,7 @@ import com.nosae.coleader.config.setAlias
 import com.nosae.coleader.repository.SharedPref
 import com.nosae.coleader.utils.debug
 import com.nosae.coleader.utils.startActivity
+import io.socket.client.Socket
 import java.util.*
 
 /**
@@ -21,6 +22,7 @@ class MyApplication: Application() {
     companion object {
         lateinit var instance: MyApplication
             private set
+        lateinit var socket: Socket
 
         private val list by lazy {
             LinkedList<Activity>()
@@ -40,10 +42,10 @@ class MyApplication: Application() {
         }
     }
 
-
     override fun onCreate() {
         super.onCreate()
         instance = this
+
         val mainProcessName = getCurrentProcessName()
         registerActivity(mainProcessName)
         initJPush()

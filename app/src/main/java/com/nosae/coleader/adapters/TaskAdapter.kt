@@ -29,10 +29,10 @@ class TaskAdapter(private val onClick: (Task) -> Unit): ListAdapter<Task, BaseVi
             holder.tv_intro.text = it.introduction
             holder.tv_time.text = it.endAt
             if (it.status == 0) {
-                holder.tv_status.text = "未打卡"
+                holder.tv_status.text = "未完成"
                 holder.tv_status.background.setTint(holder.itemView.context.getColor(R.color.colorAccent))
             } else {
-                holder.tv_status.text = "已打卡"
+                holder.tv_status.text = "已完成"
                 holder.tv_status.background.setTint(holder.itemView.context.getColor(R.color.gray))
             }
             holder.container.setOnClickListener { _ ->
