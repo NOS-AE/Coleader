@@ -31,6 +31,10 @@ interface TaskService {
     @Headers("Authorization: ")
     @PATCH("api/tasks")
     suspend fun updateTask(@Body dto: UpdateTaskDto): ResponseDto
+
+    @Headers("Authorization: ")
+    @POST("api/tasks/submit")
+    suspend fun submitTask(@Body dto: SubmitTaskDto): ResponseDto
 }
 
 @JsonClass(generateAdapter = true)
@@ -100,3 +104,13 @@ data class Task(
         @NullToString var avatar: String // null
     )
 }
+
+@JsonClass(generateAdapter = true)
+data class SubmitTaskDto(
+    var fileUrl: List<String>,
+    var taskId: Long, // 2
+    var teamId: Long, // 4
+    var fileName: List<String>,
+    var content: String, // 123
+    var title: String // 123
+)

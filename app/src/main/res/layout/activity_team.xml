@@ -43,6 +43,7 @@
                 app:riv_oval="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/test_pic"
+                imageUrl="@{viewModel.team.avatar}"
                 />
 
             <TextView

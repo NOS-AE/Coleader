@@ -33,4 +33,8 @@ class PunchRepo: BaseRepo() {
         val dto = PunchDto(teamId, cardId)
         punchService.punch(dto)
     }
+
+    suspend fun getDetails(teamId: Long, cardId: Long) = tryBlock {
+        punchService.getDetails(teamId, cardId)
+    }
 }

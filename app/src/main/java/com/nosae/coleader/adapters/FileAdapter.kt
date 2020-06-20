@@ -16,7 +16,8 @@ import kotlinx.android.synthetic.main.item_file.*
 
 class FileAdapter(
     private val onDelete: (FileItem)->Unit,
-    private val onDownload: (FileItem)->Unit
+    private val onDownload: (FileItem) -> Unit,
+    private val onShare: (FileItem) -> Unit
 ): ListAdapter<FileItem, BaseViewHolder>(object : BaseDiffCallback<FileItem>() {
     override fun areItemsTheSame(oldItem: FileItem, newItem: FileItem): Boolean {
         return oldItem.name == newItem.name
@@ -39,11 +40,20 @@ class FileAdapter(
                 holder.iv_delete.setOnClickListener { _ ->
                     onDelete(it)
                 }
-            } else{
+            } else {
                 holder.tv_download.visible()
                 holder.iv_delete.gone()
+                holder.tv_download.text = if (it.downloaded) {
+                    "分享"
+                } else {
+                    "下载"
+                }
                 holder.tv_download.setOnClickListener { _ ->
-                    onDownload(it)
+                    if (!it.downloaded) {
+                        onDownload(it)
+                    } else {
+                        onShare(it)
+                    }
                 }
             }
         }
@@ -52,5 +62,6 @@ class FileAdapter(
 
 data class FileItem(
     var name: String,
-    var path: String
+    var path: String,
+    var downloaded: Boolean = false
 )

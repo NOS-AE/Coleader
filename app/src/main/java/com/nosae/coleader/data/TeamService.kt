@@ -1,5 +1,6 @@
 package com.nosae.coleader.data
 
+import com.nosae.coleader.adapters.HostPrefix
 import com.nosae.coleader.adapters.NullToString
 import com.squareup.moshi.JsonClass
 import retrofit2.http.*
@@ -60,7 +61,7 @@ data class Team(
     var createdAt: String, // 2020-05-08T04:51:45.000Z
     var updatedAt: String, // 2020-05-08T04:51:45.000Z
     var isAdmin: Boolean = true, // true
-    @NullToString var avatar: String
+    @HostPrefix var avatar: String
 )
 
 @JsonClass(generateAdapter = true)
@@ -80,7 +81,7 @@ data class SearchTeam(
     var introduction: String, // 强哥真的强
     var createdAt: String, // 2020-05-11T00:30:59.000Z
     var updatedAt: String, // 2020-05-11T00:30:59.000Z
-    @NullToString var avatar: String // null
+    @HostPrefix var avatar: String // null
 )
 
 @JsonClass(generateAdapter = true)
@@ -116,7 +117,7 @@ data class TeamInfo(
     var id: Int, // 2
     var teamName: String, // 石头石头
     var introduction: String, // 憨憨创建的团队库
-    @NullToString var avatar: String, // null
+    @HostPrefix var avatar: String, // null
     var createdAt: String, // 2020-05-13T14:26:45.000Z
     var updatedAt: String, // 2020-05-13T14:26:45.000Z
     var peopleCount: Int, // 3
@@ -193,15 +194,15 @@ data class TeamResultMessage(
     var chatRecord: String, // 臭傻逼
     var type: String, // text
     var teamId: Long, // 1
-    var userId: Long, // 1
     var updatedAt: String, // 2020-06-18T05:03:49.726Z
     var createdAt: String, // 2020-06-18T05:03:49.726Z
     var userInfo: Info
 ) {
     data class Info(
+        var id: Long,
         var username: String,
         var nickname: String,
-        @NullToString var avatar: String
+        @HostPrefix var avatar: String
     )
 }
 

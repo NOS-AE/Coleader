@@ -4,10 +4,10 @@ import android.content.ContentUris
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
-import android.os.Build
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
+
 
 /**
  * Create by NOSAE on 2020/6/15
@@ -23,9 +23,8 @@ object FileUtil {
      * @author paulburke
      */
     fun getPath(context: Context, uri: Uri): String? {
-        val isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
         // DocumentProvider
-        if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) { // ExternalStorageProvider
+        if (DocumentsContract.isDocumentUri(context, uri)) { // ExternalStorageProvider
             if (isExternalStorageDocument(uri)) {
                 val docId = DocumentsContract.getDocumentId(uri)
                 val split = docId.split(":").toTypedArray()
@@ -36,10 +35,18 @@ object FileUtil {
                 // TODO handle non-primary volumes
             } else if (isDownloadsDocument(uri)) {
                 val id = DocumentsContract.getDocumentId(uri)
-                val contentUri: Uri = ContentUris.withAppendedId(
-                    Uri.parse("content://downloads/public_downloads"), java.lang.Long.valueOf(id)
-                )
-                return getDataColumn(context, contentUri, null, null)
+                if (id.isNotEmpty()) {
+                    return id.replaceFirst("raw:", "")
+                }
+                try {
+                    val contentUri = ContentUris.withAppendedId(
+                        Uri.parse("content://downloads/public_downloads"),
+                        java.lang.Long.valueOf(id)
+                    )
+                    return getDataColumn(context, contentUri, null, null)
+                } catch (e: NumberFormatException) {
+                    return null
+                }
             } else if (isMediaDocument(uri)) {
                 val docId = DocumentsContract.getDocumentId(uri)
                 val split = docId.split(":").toTypedArray()

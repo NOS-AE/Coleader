@@ -21,12 +21,15 @@ class MoreViewModel(
     }
 
     init {
-        launchNetwork {
-            if (TempData.userInfo == null) {
-                TempData.userInfo = repo.getUserInfo()
-            }
-            _userInfo.postValue(TempData.userInfo)
+        getInfo()
+    }
+
+
+    fun getInfo() = launchNetwork {
+        if (TempData.userInfo == null) {
+            TempData.userInfo = repo.getUserInfo()
         }
+        _userInfo.postValue(TempData.userInfo)
     }
 
     val avatar = _userInfo.map {

@@ -62,6 +62,7 @@ class MainViewModel(
     private fun receiveMessage(socket: Socket) {
         socket.on("get-msg") {
             val json = it[0] as JSONObject
+            debug("get-msg $json")
             val info = json.getJSONObject("userInfo")
             val message = UserResultMessage(
                 json.getLong("id"),
@@ -78,27 +79,26 @@ class MainViewModel(
                     if (info.isNull("avatar")) "" else info.getString("avatar")
                 )
             )
-            debug("get-msg $message")
             postEvent(ReceiveUserMessageEvent(message))
             socket.emit("msg-read", message.id, message.toId)
         }.on("get-team-msg") {
             val json = it[0] as JSONObject
-            val info = json.getJSONObject("userInfo")
+            debug("get-team-msg $json")
+            val info = json.getJSONObject("userinfo")
             val message = TeamResultMessage(
                 json.getLong("id"),
                 json.getString("chatRecord"),
                 json.getString("type"),
                 json.getLong("teamId"),
-                json.getLong("userId"),
-                json.getString("updateAt"),
-                json.getString("createAt"),
+                json.getString("updatedAt"),
+                json.getString("createdAt"),
                 TeamResultMessage.Info(
+                    info.getLong("id"),
                     info.getString("username"),
                     info.getString("nickname"),
                     if (info.isNull("avatar")) "" else info.getString("avatar")
                 )
             )
-            debug("get-team-msg $message")
             postEvent(ReceiveTeamMessageEvent(message))
         }
     }

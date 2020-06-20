@@ -2,12 +2,15 @@ package com.nosae.coleader.repository
 
 import com.nosae.coleader.data.CreateTaskDto
 import com.nosae.coleader.data.RetrofitHelper
+import com.nosae.coleader.data.SubmitTaskDto
+import okhttp3.MultipartBody
 
 /**
  * Create by NOSAE on 2020/6/10
  */
 class TaskRepo: BaseRepo() {
     private val taskService = RetrofitHelper.taskService
+    private val utilService = RetrofitHelper.utilService
 
     suspend fun getUserTask(page: Int = 1) = tryBlock {
         taskService.getTasks(page)
@@ -32,5 +35,32 @@ class TaskRepo: BaseRepo() {
 
     suspend fun deleteTask(taskId: Long) = tryBlock {
         taskService.deleteTask(taskId)
+    }
+
+    suspend fun uploadFile(type: String, file: MultipartBody.Part) = tryBlock {
+        utilService.uploadFile(type, file)
+    }
+
+    suspend fun downloadFile(url: String) = tryBlock {
+        utilService.downloadFile(url)
+    }
+
+    suspend fun submitTask(
+        taskId: Long,
+        teamId: Long,
+        title: String,
+        content: String,
+        fileUrls: List<String>,
+        fileNames: List<String>
+    ) = tryBlock {
+        val dto = SubmitTaskDto(
+            fileUrls,
+            taskId,
+            teamId,
+            fileNames,
+            content,
+            title
+        )
+        taskService.submitTask(dto)
     }
 }

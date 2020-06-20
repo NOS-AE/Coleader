@@ -52,7 +52,7 @@ data class PunchDetails(
     var nickname: String, // 憨憨
     var email: String, // 3428098215@qq.com
     var status: Int, // 0
-    var avatar: Any // null
+    @NullToString var avatar: Any // null
 )
 
 @JsonClass(generateAdapter = true)

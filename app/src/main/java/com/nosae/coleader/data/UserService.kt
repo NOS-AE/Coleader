@@ -1,5 +1,6 @@
 package com.nosae.coleader.data
 
+import com.nosae.coleader.adapters.GMTToFormat
 import com.nosae.coleader.adapters.NullToInt
 import com.nosae.coleader.adapters.NullToString
 import com.squareup.moshi.JsonClass
@@ -99,8 +100,8 @@ data class Friend(
     var username: String, // NOSAE
     var nickname: String, // 强哥
     var email: String, // 2475945868@qq.com
-    var createdAt: String, // 2020-05-09T03:33:47.000Z
-    var updatedAt: String, // 2020-05-09T03:33:47.000Z
+    @GMTToFormat var createdAt: String, // 2020-05-09T03:33:47.000Z
+    @GMTToFormat var updatedAt: String, // 2020-05-09T03:33:47.000Z
     @NullToString var avatar: String, // null
     @NullToString var province: String,
     @NullToString var city: String,

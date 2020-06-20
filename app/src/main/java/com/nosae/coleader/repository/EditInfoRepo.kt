@@ -19,13 +19,14 @@ import java.io.File
 class EditInfoRepo: BaseRepo() {
 
     private val userService = RetrofitHelper.userService
+    private val utilService = RetrofitHelper.utilService
 
     suspend fun submit(userInfo: Friend) = tryBlock {
         val dto = UserUpdateDto.createFrom(userInfo)
         userService.updateInfo(dto)
     }
 
-    suspend fun submitAvatar(file: File) = tryBlock {
-
+    suspend fun submitAvatar(type: String, file: MultipartBody.Part) = tryBlock {
+        utilService.uploadFile(type, file)
     }
 }

@@ -1,12 +1,10 @@
 package com.nosae.coleader.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import com.nosae.coleader.base.SingleLiveEvent
 import com.nosae.coleader.data.Punch
 import com.nosae.coleader.repository.PunchRepo
+import com.nosae.coleader.utils.debug
 
 /**
  * Create by NOSAE on 2020/6/6
@@ -16,6 +14,21 @@ class PunchViewModel(
 ): BaseViewModel() {
 
     val punch = MutableLiveData<Punch>()
+
+    val membersRes = punch.switchMap {
+        liveData {
+            val res = repo.getDetails(it.teamId, it.id)
+            if (res != null && res.errno == "0") {
+                debug("memberRe a" + res.data.rows.size)
+                emit(res.data.rows.map {
+                    PunchMember("${it.nickname}(${it.username})", it.status)
+                })
+            } else {
+                debug("memberRes b")
+                emit(null)
+            }
+        }
+    }
 
     private val _punchRes = SingleLiveEvent<String>()
     val punchRes: LiveData<String?> = _punchRes
@@ -44,3 +57,8 @@ class PunchViewModel(
         }
     }
 }
+
+data class PunchMember(
+    var name: String,
+    var status: Int
+)

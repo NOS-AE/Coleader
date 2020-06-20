@@ -103,6 +103,18 @@ inline fun <reified T: Activity> Context?.startActivity(bundle: Bundle? = null, 
     this?.startActivity(intent, options)
 }
 
+inline fun <reified T : Activity> Context?.startActivityForResult(
+    bundle: Bundle? = null,
+    requestCode: Int,
+    options: Bundle? = null
+) {
+    val intent = Intent(this, T::class.java)
+    if (bundle != null) {
+        intent.putExtras(bundle)
+    }
+    if (this is Activity) startActivityForResult(intent, requestCode, options)
+}
+
 inline fun <reified T: Activity> Activity.startActivityForResult(bundle: Bundle? = null, requestCode: Int, options: Bundle? = null) {
     val intent = Intent(this, T::class.java)
     if (bundle != null) {

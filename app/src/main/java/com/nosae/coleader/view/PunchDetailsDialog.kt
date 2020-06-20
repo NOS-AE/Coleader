@@ -1,85 +1,75 @@
 package com.nosae.coleader.view
 
-import android.annotation.SuppressLint
-import android.app.Dialog
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.nosae.coleader.R
+import com.nosae.coleader.base.BaseBottomDialog
 import com.nosae.coleader.base.BaseDiffCallback
 import com.nosae.coleader.base.BaseViewHolder
-import com.nosae.coleader.data.PunchDetails
 import com.nosae.coleader.utils.inflate
+import com.nosae.coleader.utils.submitList
 import kotlinx.android.synthetic.main.layout_punch_details.view.*
+import kotlinx.android.synthetic.main.layout_simple_list.*
 import kotlinx.android.synthetic.main.layout_simple_list.view.*
 
 /**
  * Create by NOSAE on 2020/5/29
  */
-class PunchDetailsDialog: BottomSheetDialogFragment() {
-    private lateinit var behavior: BottomSheetBehavior<*>
-    private lateinit var mView: View
-    private lateinit var adapters: List<RecyclerView.Adapter<*>>
+class PunchDetailsDialog : BaseBottomDialog() {
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val res = super.onCreateDialog(savedInstanceState)
-        res.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-        return res
+    private var list0: List<String>? = emptyList()
+    private var list1: List<String>? = emptyList()
+
+    override fun getLayoutId(): Int {
+        return R.layout.layout_punch_details
     }
 
-    @SuppressLint("RestrictedApi")
-    override fun setupDialog(dialog: Dialog, style: Int) {
-        super.setupDialog(dialog, style)
-        if (!this::mView.isInitialized) {
-            mView = LayoutInflater.from(context).inflate(R.layout.layout_punch_details, null)
+    override fun View.initView() {
+        pager.adapter = object : RecyclerView.Adapter<BaseViewHolder>() {
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+                val v = parent.inflate(R.layout.layout_list)
+                v.rv.layoutManager = LinearLayoutManager(context)
+                v.rv.adapter = ItemAdapter()
+                return BaseViewHolder(v)
+            }
+
+            override fun getItemCount(): Int {
+                return 2
+            }
+
+            override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+                (holder.rv.adapter as ItemAdapter).submitList(
+                    holder.multiStateView,
+                    if (position == 0)
+                        list1
+                    else
+                        list0
+                )
+            }
+
         }
-        dialog.setContentView(mView)
-        val parent = mView.parent as View
-        parent.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
-        behavior = BottomSheetBehavior.from(parent)
-        behavior.isHideable = true
-
-        mView.initView()
-    }
-
-    private fun View.initView() {
-
-        pager.adapter = PagerAdapter()
-
-        TabLayoutMediator(tab, pager) { tab, position ->
-            tab.text = if (position == 0)
+        TabLayoutMediator(tab, pager) { tab, pos ->
+            tab.text = if (pos == 0)
                 "已打卡"
             else
                 "未打卡"
-            pager.currentItem = position
         }.attach()
     }
 
-    private inner class PagerAdapter : RecyclerView.Adapter<BaseViewHolder>() {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-            val v = parent.inflate(R.layout.layout_simple_list)
-            v.rv.layoutManager = LinearLayoutManager(context)
-            return BaseViewHolder(v)
-        }
-
-        override fun getItemCount(): Int {
-            return 2
-        }
-
-        override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-            (holder.itemView as RecyclerView).adapter = adapters[position]
-        }
+    fun setData(list0: List<String>?, list1: List<String>?) {
+        this.list0 = list0
+        this.list1 = list1
     }
 
-    private inner class ListAdapter: androidx.recyclerview.widget.ListAdapter<PunchDetails, BaseViewHolder>(object : BaseDiffCallback<PunchDetails>() {
-        override fun areItemsTheSame(oldItem: PunchDetails, newItem: PunchDetails): Boolean {
-            return oldItem.username == newItem.username
+    private class ItemAdapter :
+        ListAdapter<String, BaseViewHolder>(object : BaseDiffCallback<String>() {
+            override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+                return oldItem == newItem
         }
     }) {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -88,20 +78,9 @@ class PunchDetailsDialog: BottomSheetDialogFragment() {
         }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-            getItem(position).run {
-
-            }
+            (holder.itemView as TextView).text = getItem(position)
         }
 
     }
 
-    override fun onStart() {
-        super.onStart()
-        behavior.state = BottomSheetBehavior.STATE_EXPANDED
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        (mView.parent as ViewGroup).removeView(mView)
-    }
 }

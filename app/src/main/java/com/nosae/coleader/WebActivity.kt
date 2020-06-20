@@ -3,9 +3,7 @@ package com.nosae.coleader
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.webkit.WebChromeClient
-import android.webkit.WebSettings
-import android.webkit.WebView
+import android.webkit.*
 import androidx.lifecycle.lifecycleScope
 import com.github.lzyzsd.jsbridge.BridgeWebView
 import com.nosae.coleader.base.BaseActivity
@@ -36,6 +34,8 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
             useWideViewPort = true
             javaScriptCanOpenWindowsAutomatically = true
             layoutAlgorithm = WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING
+            domStorageEnabled = true
+
         }
         webView.webChromeClient = object : WebChromeClient() {
             override fun onProgressChanged(view: WebView?, newProgress: Int) {
@@ -69,6 +69,7 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun onGetForm(e: FormEvent) {
+        removeStickyEvent(e)
         val form = e.form
         if (type == WRITE) {
             webView.writeForm {
@@ -78,7 +79,7 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
             }
         } else {
             webView.showResult {
-                ResultFormBean(getToken(), form.id, form.params).toJson().also {
+                ResultFormBean(getToken(), form.teamId, form.params).toJson().also {
                     debug(it)
                 }
             }
@@ -91,7 +92,7 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                 cb.onCallBack(data())
             }
         }
-        loadUrl("http://39.108.117.52:8080/questionnaire")
+        loadUrl("http://39.108.117.52:8080/questionnaire/create")
     }
 
     private fun BridgeWebView.writeForm(data: suspend () -> String) {

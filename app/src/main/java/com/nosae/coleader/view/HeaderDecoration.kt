@@ -19,7 +19,7 @@ class HeaderDecoration(
     private var mHeight = 30.dp
 
     private val mPaint = Paint().apply {
-        color = 0xFFC5C5C5.toInt()
+        color = 0xFFf0f0f0.toInt()
         style = Paint.Style.FILL
         isAntiAlias = true
     }
@@ -28,7 +28,6 @@ class HeaderDecoration(
         textSize = 14.spf
         isAntiAlias = true
         baselineShift = (textSize / 2 - descent()).toInt()
-        textAlign = Paint.Align.CENTER
     }
 
     // 给组内第一个Item增加额外空间来绘制Header
@@ -49,8 +48,8 @@ class HeaderDecoration(
     override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDraw(c, parent, state)
 
-        val left = 0f
-        val right = parent.width.toFloat()
+        val left = parent.left.toFloat() + parent.paddingLeft
+        val right = parent.right.toFloat() - parent.paddingRight
         val childCount = parent.childCount
 
         for (i in 0 until childCount) {
@@ -63,7 +62,7 @@ class HeaderDecoration(
             c.drawRect(left, top, right, bottom, mPaint)
 
             val title = callback.getGroupTitle(pos)
-            c.drawText(title, left, top + mHeight / 2 + mTextPaint.baselineShift, mTextPaint)
+            c.drawText(title, left + 4.dp, top + mHeight / 2 + mTextPaint.baselineShift, mTextPaint)
         }
     }
 
@@ -71,6 +70,8 @@ class HeaderDecoration(
     private fun isFirstInGroup(pos: Int): Boolean {
         if (pos < 0)
             return false
+        if (pos == 0)
+            return true
         val index = callback.getGroupIndex(pos)
         val preIndex = callback.getGroupIndex(pos - 1)
         return index != preIndex

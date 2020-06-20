@@ -1,20 +1,15 @@
 package com.nosae.coleader
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.nosae.coleader.base.BaseFragment
 import com.nosae.coleader.base.BaseToolbarFragment
 import com.nosae.coleader.data.TempData
 import com.nosae.coleader.databinding.FragmentMoreBinding
 import com.nosae.coleader.repository.SharedPref
-import com.nosae.coleader.utils.debug
-import com.nosae.coleader.utils.startActivity
 import com.nosae.coleader.viewmodels.MoreViewModel
 
 /**
@@ -44,7 +39,7 @@ class MoreFragment : BaseToolbarFragment<FragmentMoreBinding>() {
         b.viewModel = this.viewModel
         b.ivAvatar.setColorFilter(0x33ffffff)
         b.fab.setOnClickListener {
-            startActivity<EditInfoActivity>()
+            EditInfoActivity.start(this)
         }
         b.llLogout.setOnClickListener {
             dialog.show()
@@ -55,8 +50,17 @@ class MoreFragment : BaseToolbarFragment<FragmentMoreBinding>() {
         TempData.clear()
         SharedPref.loginAccount = ""
         SharedPref.userPassword = ""
+        MyApplication.socket.disconnect()
         val intent = Intent(context, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode != Activity.RESULT_OK)
+            return
+        if (requestCode == EditInfoActivity.REQUEST_EDIT_INFO) {
+            viewModel.getInfo()
+        }
     }
 }

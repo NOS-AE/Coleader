@@ -39,7 +39,7 @@ class BiometricPromptHelper(mActivity: FragmentActivity) {
     private lateinit var mCancelSignal: CancellationSignal
     private val mSignature: Signature?
     private val mPromptInfo: BiometricPrompt.PromptInfo = BiometricPrompt.PromptInfo.Builder()
-        .setTitle("指纹认证")
+        .setTitle("指纹打卡")
         .setDescription("认证指纹以继续下一步操作")
         .setSubtitle("")
         .setNegativeButtonText("取消")

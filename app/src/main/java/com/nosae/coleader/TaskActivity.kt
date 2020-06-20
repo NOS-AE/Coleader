@@ -3,6 +3,7 @@ package com.nosae.coleader
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.observe
@@ -55,8 +56,14 @@ class TaskActivity : BaseActivity<ActivityTaskBinding>() {
         }
         val adapter = FileAdapter({
             viewModel.deleteFile(it)
-        }) {
+        }, {
             viewModel.download(it)
+        }) {
+            val intent = Intent(Intent.ACTION_SEND)
+            val uri = Uri.parse(it.path)
+            intent.type = "*/*"
+            intent.putExtra(Intent.EXTRA_STREAM, uri)
+            startActivity(Intent.createChooser(intent, "分享文件"))
         }
         b.rv.adapter = adapter
 
@@ -73,16 +80,21 @@ class TaskActivity : BaseActivity<ActivityTaskBinding>() {
         viewModel.downloadFile.observe(this) {
             adapter.status = 1
             b.rv.addItemDecoration(decoration)
-            adapter.notifyDataSetChange(multiStateView, it)
+            adapter.submitList(b.multiStateView, it)
+            // adapter.notifyDataSetChange(multiStateView, it)
         }
         viewModel.uploadFile.observe(this) {
-            it.forEach {
-                debug("上传文件 $it")
-            }
             adapter.status = 0
             b.rv.removeItemDecoration(decoration)
             adapter.submitList(b.multiStateView, it)
-            // adapter.notifyDataSetChange(multiStateView, it)
+            adapter.notifyDataSetChanged()
+        }
+        viewModel.downloadRes.observe(this) {
+            if (it == null) {
+                adapter.notifyDataSetChanged()
+            } else {
+                toast(it)
+            }
         }
         viewModel.deleteRes.observe(this) {
             if (it == null) {
@@ -159,6 +171,4 @@ class TaskActivity : BaseActivity<ActivityTaskBinding>() {
             )
         }
     }
-
-
 }

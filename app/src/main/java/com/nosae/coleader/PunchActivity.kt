@@ -2,9 +2,7 @@ package com.nosae.coleader
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
 import androidx.biometric.BiometricPrompt
@@ -36,14 +34,24 @@ class PunchActivity : BaseActivity<ActivityPunchBinding>() {
         bindToolbar("打卡")
         b.toolbar.navigationIcon?.setTint(0xFFFFFFFF.toInt())
         b.container.layoutAnimation = AnimationUtils.loadLayoutAnimation(this, R.anim.list_anim)
+
+        val dialog = PunchDetailsDialog()
         b.tvCheck.setOnClickListener {
-            PunchDetailsDialog()
-                .show(supportFragmentManager, "dialog")
+            dialog.show(supportFragmentManager, "dialog")
         }
         viewModel.punchRes.observe(this) {
             it?.let {
                 toast(it)
             }
+        }
+        viewModel.membersRes.observe(this) {
+            it?.let {
+                debug("memberRes ${it.size}")
+            } ?: debug("memberRes null")
+
+            val list0 = it?.filter { it.status == 0 }
+            val list1 = it?.filter { it.status == 1 }
+            dialog.setData(list0?.map { it.name }, list1?.map { it.name })
         }
         val manager = BiometricManager.from(this)
         b.tvPunch.setOnClickListener {
@@ -52,29 +60,24 @@ class PunchActivity : BaseActivity<ActivityPunchBinding>() {
                 return@setOnClickListener
             }
             manager.authenticate(object : BiometricManager.OnBiometriIndentifyCallback {
-                override fun onPassword() {
-                    super.onPassword()
-                    toast("onPassword")
-                }
-
                 override fun onSuccess(result: BiometricPrompt.AuthenticationResult) {
                     super.onSuccess(result)
-                    toast("onSuccess")
+                    viewModel.punch()
                 }
 
                 override fun onFailed() {
                     super.onFailed()
-                    toast("onFailed")
+                    debug("onFailed")
                 }
 
                 override fun onError(errCode: Int, reason: String) {
                     super.onError(errCode, reason)
-                    toast("onError $errCode $reason")
+                    debug("onError $errCode $reason")
                 }
 
                 override fun onCancel() {
                     super.onCancel()
-                    toast("onCancel")
+                    toast("取消验证")
                 }
             })
         }
@@ -82,6 +85,7 @@ class PunchActivity : BaseActivity<ActivityPunchBinding>() {
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun onGetPunch(e: PunchEvent) {
+        removeStickyEvent(e)
         val punch = e.punch
         viewModel.punch.value = punch
     }

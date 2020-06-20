@@ -2,15 +2,16 @@ package com.nosae.coleader
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import com.nosae.coleader.base.BaseActivity
 import com.nosae.coleader.databinding.ActivityEditInfoBinding
-import com.nosae.coleader.utils.load
-import com.nosae.coleader.utils.toast
+import com.nosae.coleader.utils.*
 import com.nosae.coleader.viewmodels.EditInfoViewModel
 
 class EditInfoActivity : BaseActivity<ActivityEditInfoBinding>() {
@@ -37,7 +38,13 @@ class EditInfoActivity : BaseActivity<ActivityEditInfoBinding>() {
         setCenterTitle("修改资料")
         b.viewModel = viewModel
         viewModel.submitRes.observe(this) {
-            toast(it ?: "修改成功")
+            if (it == null) {
+                toast("修改成功")
+                setResult(Activity.RESULT_OK)
+                finish()
+            } else {
+                toast(it)
+            }
         }
         b.ivAvatar.setOnClickListener {
             openGallery()
@@ -60,9 +67,22 @@ class EditInfoActivity : BaseActivity<ActivityEditInfoBinding>() {
         if (requestCode == 100 && resultCode == Activity.RESULT_OK) {
             data?.data?.let {
                 mBinding.ivAvatar.load(it)
-                viewModel.avatarUri = it
+                val path = FileUtil.getPath(this, it)
+                viewModel.avatarPath = path
             }
         }
+    }
+
+    companion object {
+        fun start(ctx: Context?) {
+            ctx.startActivityForResult<EditInfoActivity>(requestCode = REQUEST_EDIT_INFO)
+        }
+
+        fun start(ctx: Fragment) {
+            ctx.startActivityForResult<EditInfoActivity>(requestCode = REQUEST_EDIT_INFO)
+        }
+
+        const val REQUEST_EDIT_INFO = 10
     }
 
 }

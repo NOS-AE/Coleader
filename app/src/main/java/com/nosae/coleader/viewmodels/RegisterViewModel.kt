@@ -67,7 +67,7 @@ class RegisterViewModel(
                 }
                 res.errno == "0" -> {
                     captchaCountDown(60)
-                    _captchaRes.call()
+                    _captchaRes.postCall()
                 }
                 else -> {
                     _captchaRes.postValue("获取验证码失败")
@@ -102,14 +102,14 @@ class RegisterViewModel(
             val res = repo.register(username.value!!, password.value!!, email.value!!, captcha.value!!)
             isLoading.postValue(false)
             if (res == null) {
-                _registerRes.value = "注册失败"
+                _registerRes.postValue("注册失败")
                 return@launchNetwork
             }
             when(res.errno) {
-                "0" -> _registerRes.call()
-                "11005" -> _registerRes.value = "验证码错误"
-                "11006" -> _registerRes.value = "用户已存在"
-                else -> _registerRes.value = "注册失败"
+                "0" -> _registerRes.postCall()
+                "11005" -> _registerRes.postValue("验证码错误")
+                "11006" -> _registerRes.postValue("用户已存在")
+                else -> _registerRes.postValue("注册失败")
             }
         }
     }

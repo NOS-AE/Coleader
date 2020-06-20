@@ -12,6 +12,43 @@ import java.util.*
 
 @Retention(AnnotationRetention.RUNTIME)
 @JsonQualifier
+annotation class HostPrefix
+
+class HostPrefixFactory : JsonAdapter.Factory {
+
+    private val annClass = HostPrefix::class.java
+
+    override fun create(
+        type: Type,
+        annotations: MutableSet<out Annotation>,
+        moshi: Moshi
+    ): JsonAdapter<*>? {
+        if (annotations isAnnotationPresent annClass) {
+            return Adapter
+        }
+        return null
+    }
+
+    private object Adapter : JsonAdapter<String>() {
+        override fun fromJson(reader: JsonReader): String? {
+            return when (reader.peek()) {
+                JsonReader.Token.NULL -> {
+                    reader.nextNull<Any>()
+                    ""
+                }
+                else -> "http://yjcxlr.cn:3000" + reader.nextString()
+            }
+        }
+
+        override fun toJson(writer: JsonWriter, value: String?) {
+            writer.value(value)
+        }
+
+    }
+}
+
+@Retention(AnnotationRetention.RUNTIME)
+@JsonQualifier
 annotation class NullToString
 
 class NullToStringFactory: JsonAdapter.Factory {

@@ -73,7 +73,7 @@ class MessageViewModel(private val repo: MessageRepo): BaseViewModel() {
                         )
                     }
                 }
-                msgRes.postAddAll(list)
+                msgRes.postAddAll(list.reversed())
             }
         } else {
             val res = repo.getTeamMessage(id)
@@ -98,7 +98,7 @@ class MessageViewModel(private val repo: MessageRepo): BaseViewModel() {
                     } else
                         MessageItem(i.chatRecord, TempData.userInfo!!.data.avatar, TempData.userInfo!!.data.nickname, false)
                 }
-                msgRes.postAddAll(list)
+                msgRes.postAddAll(list.reversed())
             }
         }
     }

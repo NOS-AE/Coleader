@@ -39,7 +39,6 @@ data class Form(
     var id: Long, // 1
     var title: String, // 测试标题
     var description: String, // 测试描述
-    var content: List<Content>,
     @GMTToFormat var createdAt: String, // 2020-06-15T14:08:48.000Z
     var updatedAt: String, // 2020-06-15T14:08:48.000Z
     var teamId: Long, // 1
@@ -48,11 +47,4 @@ data class Form(
     var teamIntroduction: String, // 猫猫创建的团队库
     var params: String, // fbcf2220c17f0be5a877caebb7388201
     @NullToString var teamAvatar: String // null
-) {
-    @JsonClass(generateAdapter = true)
-    data class Content(
-        var title: String, // 测试内容3
-        var type: String, // text
-        var value: List<String>
-    )
-}
+)

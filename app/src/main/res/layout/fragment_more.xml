@@ -42,7 +42,9 @@
                     android:src="@drawable/test_pic"
                     android:elevation="0dp"
                     app:layout_collapseMode="parallax"
-                    android:fitsSystemWindows="true"/>
+                    android:fitsSystemWindows="true"
+                    imageUrl="@{viewModel.avatar}"
+                    />
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"

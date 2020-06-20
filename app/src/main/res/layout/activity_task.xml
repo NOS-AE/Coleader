@@ -135,9 +135,37 @@
                     android:textSize="15sp"
                     app:layout_constraintTop_toBottomOf="@id/view1"
                     android:layout_marginTop="20dp"
-                    tools:text="So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?"
+                    tools:text="So what do they look for when determining whether you'll help them reach their goal and get them get a return on their investment?So what do they "
                     android:text="@{viewModel.task.content}"
                     android:lineSpacingExtra="4dp"
+                    />
+
+                <EditText
+                    android:id="@+id/et_submit_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_content"
+                    android:background="@drawable/selector_et_login"
+                    android:layout_marginTop="20dp"
+                    android:text="@{viewModel.title}"
+                    android:textSize="14sp"
+                    android:padding="10dp"
+                    android:hint="提交标题"
+                    android:visibility="@{viewModel.task.isAdmin ? View.GONE : View.VISIBLE}"
+                    />
+
+                <EditText
+                    android:id="@+id/et_submit_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/et_submit_title"
+                    android:background="@drawable/selector_et_login"
+                    android:layout_marginTop="20dp"
+                    android:text="@{viewModel.content}"
+                    android:textSize="14sp"
+                    android:padding="10dp"
+                    android:hint="提交内容"
+                    android:visibility="@{viewModel.task.isAdmin ? View.GONE : View.VISIBLE}"
                     />
 
                 <TextView
@@ -147,7 +175,7 @@
                     android:text="@{(viewModel.task.status == 0 &amp;&amp; !viewModel.task.isAdmin) ? `待提交文件` : `已提交文件`}"
                     tools:text="待提交文件"
                     android:textColor="@color/black"
-                    app:layout_constraintTop_toBottomOf="@id/tv_content"
+                    app:layout_constraintTop_toBottomOf="@id/et_submit_content"
                     android:layout_marginTop="20dp"
                     app:layout_constraintStart_toStartOf="parent"
                     />

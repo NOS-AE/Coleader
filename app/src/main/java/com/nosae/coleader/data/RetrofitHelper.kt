@@ -2,6 +2,7 @@ package com.nosae.coleader.data
 
 import com.nosae.coleader.MyApplication
 import com.nosae.coleader.adapters.GMTToFormatFactory
+import com.nosae.coleader.adapters.HostPrefixFactory
 import com.nosae.coleader.adapters.NullToIntFactory
 import com.nosae.coleader.adapters.NullToStringFactory
 import com.nosae.coleader.repository.SharedPref
@@ -64,6 +65,7 @@ object RetrofitHelper {
                     .add(NullToStringFactory())
                     .add(NullToIntFactory())
                     .add(GMTToFormatFactory())
+                    .add(HostPrefixFactory())
                     .build()
             ))
             .build()
@@ -75,6 +77,7 @@ object RetrofitHelper {
     val punchService: PunchService by lazy { retrofit.create(PunchService::class.java) }
     val taskService: TaskService by lazy { retrofit.create(TaskService::class.java) }
     val formService: FormService by lazy { retrofit.create(FormService::class.java) }
+    val utilService: UtilService by lazy { retrofit.create(UtilService::class.java) }
 
     private const val TOKEN_EXPIRED_TIME = 1000 * 60 * 10L
     private val tokenMutex = Mutex()
